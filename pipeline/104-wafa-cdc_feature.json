@@ -1,0 +1,37 @@
+{
+	"name": "104-wafa-cdc_feature",
+	"properties": {
+		"activities": [
+			{
+				"name": "Data flow1",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "dataflow1",
+						"type": "DataFlowReference"
+					},
+					"compute": {
+						"coreCount": 8,
+						"computeType": "General"
+					},
+					"traceLevel": "Fine",
+					"continuationSettings": {
+						"customizedCheckpointKey": "02bbfb2d-e3f0-4356-b193-ceb62b506a56"
+					}
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2023-08-21T17:49:29Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
