@@ -1,0 +1,9 @@
+{
+	"name": "df-learning-mamor",
+	"location": "westeurope",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "201571b8-9a9e-4bcb-9632-258a7a3fc992",
+		"tenantId": "645f3d14-40b3-400b-b320-cdf6188a3a7a"
+	}
+}
