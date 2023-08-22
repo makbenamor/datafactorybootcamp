@@ -89,7 +89,9 @@
 								{
 									"name": "keys",
 									"value": [
-										"id"
+										"id",
+										"FirstName",
+										"LastName"
 									]
 								},
 								{
@@ -194,6 +196,7 @@
 			},
 			"mode": "Microbatch"
 		},
+		"status": "Started",
 		"allowVNetOverride": false
 	}
 }
