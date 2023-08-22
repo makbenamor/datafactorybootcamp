@@ -33,7 +33,7 @@
 				"     limit: 10,",
 				"     enableNativeCdc: true,",
 				"     netChanges: true,",
-				"     skipInitialLoad: true,",
+				"     skipInitialLoad: false,",
 				"     waterMarkColumn: 'SellEndDate',",
 				"     isolationLevel: 'READ_UNCOMMITTED',",
 				"     format: 'table') ~> source1",
