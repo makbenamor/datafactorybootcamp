@@ -21,11 +21,7 @@
 					"name": "sink1"
 				}
 			],
-			"transformations": [
-				{
-					"name": "AlterRow1"
-				}
-			],
+			"transformations": [],
 			"scriptLines": [
 				"source(output(",
 				"          ProductID as integer,",
@@ -52,10 +48,7 @@
 				"     waterMarkColumn: 'SellEndDate',",
 				"     isolationLevel: 'READ_UNCOMMITTED',",
 				"     format: 'table') ~> source1",
-				"source1 alterRow(updateIf(SellStartDate < currentTimestamp()),",
-				"     deleteIf(SellStartDate > currentTimestamp()),",
-				"     upsertIf(SellStartDate <= currentTimestamp())) ~> AlterRow1",
-				"AlterRow1 sink(allowSchemaDrift: true,",
+				"source1 sink(allowSchemaDrift: true,",
 				"     validateSchema: true,",
 				"     input(",
 				"          ProductID as integer,",

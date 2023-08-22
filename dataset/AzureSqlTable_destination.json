@@ -95,8 +95,8 @@
 			}
 		],
 		"typeProperties": {
-			"schema": "SalesLT",
-			"table": "Product_CDC_2023"
+			"schema": "dbo",
+			"table": "names_cdc"
 		}
 	},
 	"type": "Microsoft.DataFactory/factories/datasets"
