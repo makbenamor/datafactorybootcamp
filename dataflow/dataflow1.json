@@ -87,7 +87,6 @@
 				"     saveOrder: 1,",
 				"     errorHandlingOption: 'stopOnFirstError',",
 				"     mapColumn(",
-				"          ProductID,",
 				"          Name,",
 				"          ProductNumber,",
 				"          Color,",
