@@ -73,6 +73,7 @@
 				"     insertable:true,",
 				"     updateable:true,",
 				"     upsertable:true,",
+				"     keys:['SellStartDate'],",
 				"     format: 'table',",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
