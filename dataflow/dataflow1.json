@@ -52,7 +52,7 @@
 				"     waterMarkColumn: 'SellEndDate',",
 				"     isolationLevel: 'READ_UNCOMMITTED',",
 				"     format: 'table') ~> source1",
-				"source1 alterRow() ~> AlterRow1",
+				"source1 alterRow(updateIf(SellStartDate < currentDate())) ~> AlterRow1",
 				"AlterRow1 sink(allowSchemaDrift: true,",
 				"     validateSchema: true,",
 				"     input(",
