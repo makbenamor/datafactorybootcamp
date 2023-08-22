@@ -166,8 +166,8 @@
 					}
 				],
 				"typeProperties": {
-					"schema": "SalesLT",
-					"table": "Product_CDC"
+					"schema": "dbo",
+					"table": "names"
 				}
 			},
 			"dependsOn": [
@@ -273,8 +273,8 @@
 					}
 				],
 				"typeProperties": {
-					"schema": "SalesLT",
-					"table": "Product_CDC_2023"
+					"schema": "dbo",
+					"table": "names_cdc"
 				}
 			},
 			"dependsOn": [
@@ -322,32 +322,21 @@
 					"transformations": [],
 					"scriptLines": [
 						"source(output(",
-						"          ProductID as integer,",
-						"          Name as string,",
-						"          ProductNumber as string,",
-						"          Color as string,",
-						"          StandardCost as decimal(19,4),",
-						"          ListPrice as decimal(19,4),",
-						"          Size as string,",
-						"          Weight as decimal(8,2),",
-						"          ProductCategoryID as integer,",
-						"          ProductModelID as integer,",
-						"          SellStartDate as timestamp,",
-						"          SellEndDate as timestamp,",
-						"          DiscontinuedDate as timestamp,",
-						"          ThumbNailPhoto as binary,",
-						"          ThumbnailPhotoFileName as string,",
-						"          rowguid as string,",
-						"          ModifiedDate as timestamp",
+						"          id as integer,",
+						"          FirstName as string,",
+						"          LastName as string",
 						"     ),",
 						"     allowSchemaDrift: true,",
 						"     validateSchema: false,",
 						"     limit: 10,",
+						"     enableNativeCdc: true,",
+						"     netChanges: true,",
+						"     skipInitialLoad: true,",
 						"     waterMarkColumn: 'SellEndDate',",
 						"     isolationLevel: 'READ_UNCOMMITTED',",
 						"     format: 'table') ~> source1",
 						"source1 sink(allowSchemaDrift: true,",
-						"     validateSchema: false,",
+						"     validateSchema: true,",
 						"     input(",
 						"          ProductID as integer,",
 						"          Name as string,",
@@ -367,10 +356,11 @@
 						"          rowguid as string,",
 						"          ModifiedDate as timestamp",
 						"     ),",
-						"     deletable:false,",
+						"     deletable:true,",
 						"     insertable:true,",
-						"     updateable:false,",
-						"     upsertable:false,",
+						"     updateable:true,",
+						"     upsertable:true,",
+						"     keys:['id'],",
 						"     format: 'table',",
 						"     skipDuplicateMapInputs: true,",
 						"     skipDuplicateMapOutputs: true,",
