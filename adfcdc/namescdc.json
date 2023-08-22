@@ -85,6 +85,30 @@
 								{
 									"name": "tableName",
 									"value": "names_cdc"
+								},
+								{
+									"name": "keys",
+									"value": [
+										"id",
+										"FirstName",
+										"LastName"
+									]
+								},
+								{
+									"name": "deletable",
+									"value": true
+								},
+								{
+									"name": "updateable",
+									"value": true
+								},
+								{
+									"name": "upsertable",
+									"value": true
+								},
+								{
+									"name": "defaultToUpsert",
+									"value": true
 								}
 							]
 						}
