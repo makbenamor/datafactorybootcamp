@@ -89,8 +89,6 @@
 								{
 									"name": "keys",
 									"value": [
-										"id",
-										"FirstName",
 										"LastName"
 									]
 								},
