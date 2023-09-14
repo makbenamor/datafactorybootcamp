@@ -1,0 +1,9 @@
+{
+	"name": "xcceleratedassignment-makram-amor",
+	"location": "westeurope",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "b2daefde-4804-4bc8-94e3-f268d0bff0e7",
+		"tenantId": "f52f68f3-c33d-4010-a05e-2ec1bc7dd698"
+	}
+}
