@@ -1,10 +1,6 @@
 {
 	"name": "AzureSqlTable_destination",
 	"properties": {
-		"linkedServiceName": {
-			"referenceName": "AzureSqlDatabase1",
-			"type": "LinkedServiceReference"
-		},
 		"folder": {
 			"name": "static datasets"
 		},
