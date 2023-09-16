@@ -1,6 +1,10 @@
 {
 	"name": "AzureSqlTable_destination",
 	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabase2",
+			"type": "LinkedServiceReference"
+		},
 		"folder": {
 			"name": "static datasets"
 		},
@@ -95,7 +99,7 @@
 		],
 		"typeProperties": {
 			"schema": "dbo",
-			"table": "names_cdc"
+			"table": ""
 		}
 	},
 	"type": "Microsoft.DataFactory/factories/datasets"
