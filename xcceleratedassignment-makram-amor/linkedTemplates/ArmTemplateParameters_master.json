@@ -17,8 +17,17 @@
 		"AzureSqlDatabase2_connectionString": {
 			"value": ""
 		},
+		"FileServer1_password": {
+			"value": ""
+		},
 		"AzureDataLakeStorage1_properties_typeProperties_url": {
 			"value": "https://dlmamorbootcamp2023.dfs.core.windows.net/"
+		},
+		"FileServer1_properties_typeProperties_host": {
+			"value": "D:\\myfiles\\cars.csv"
+		},
+		"FileServer1_properties_typeProperties_userId": {
+			"value": "mamorpc"
 		},
 		"HttpServer1_properties_typeProperties_url": {
 			"value": "https://storage.googleapis.com/"
