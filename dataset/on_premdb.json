@@ -1,0 +1,43 @@
+{
+	"name": "on_premdb",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "on_premsqlserver",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": [
+			{
+				"name": "Make",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Model",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Type",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Origin",
+				"type": "nvarchar"
+			},
+			{
+				"name": "DriveTrain",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Length",
+				"type": "decimal",
+				"precision": 18,
+				"scale": 0
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "Cars"
+		}
+	}
+}
