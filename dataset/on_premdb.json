@@ -5,6 +5,9 @@
 			"referenceName": "on_premsqlserver",
 			"type": "LinkedServiceReference"
 		},
+		"folder": {
+			"name": "static datasets"
+		},
 		"annotations": [],
 		"type": "SqlServerTable",
 		"schema": [

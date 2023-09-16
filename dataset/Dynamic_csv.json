@@ -1,19 +1,28 @@
 {
-	"name": "on_premcsv",
+	"name": "Dynamic_csv",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "FileServer1",
+			"referenceName": "AzureDataLakeStorage1",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"file_name": {
+				"type": "String"
+			}
+		},
 		"folder": {
-			"name": "static datasets"
+			"name": "Dynamic Datasets"
 		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {
 			"location": {
-				"type": "FileServerLocation",
-				"fileName": "cars.csv"
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@dataset().file_name",
+					"type": "Expression"
+				},
+				"fileSystem": "dl-raw"
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",
