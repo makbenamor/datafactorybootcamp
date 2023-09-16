@@ -135,6 +135,9 @@
 				]
 			}
 		],
+		"folder": {
+			"name": "Trainings"
+		},
 		"annotations": []
 	}
 }
