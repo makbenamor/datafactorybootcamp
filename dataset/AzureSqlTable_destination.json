@@ -5,6 +5,11 @@
 			"referenceName": "AzureSqlDatabase2",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"table_name": {
+				"type": "String"
+			}
+		},
 		"folder": {
 			"name": "static datasets"
 		},
@@ -99,7 +104,10 @@
 		],
 		"typeProperties": {
 			"schema": "dbo",
-			"table": ""
+			"table": {
+				"value": "@dataset().table_name",
+				"type": "Expression"
+			}
 		}
 	},
 	"type": "Microsoft.DataFactory/factories/datasets"
