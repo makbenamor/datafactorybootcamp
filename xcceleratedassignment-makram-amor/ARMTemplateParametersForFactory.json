@@ -20,6 +20,12 @@
 		"FileServer1_password": {
 			"value": ""
 		},
+		"on_premsqlserver_connectionString": {
+			"value": "Integrated Security=True;Data Source=DEVICE_MAMOR;Initial Catalog=sales"
+		},
+		"on_premsqlserver_password": {
+			"value": ""
+		},
 		"AzureDataLakeStorage1_properties_typeProperties_url": {
 			"value": "https://dlmamorbootcamp2023.dfs.core.windows.net/"
 		},
@@ -31,6 +37,9 @@
 		},
 		"HttpServer1_properties_typeProperties_url": {
 			"value": "https://storage.googleapis.com/"
+		},
+		"on_premsqlserver_properties_typeProperties_userName": {
+			"value": "mamorpc"
 		}
 	}
 }
