@@ -24,7 +24,7 @@
 			"value": "https://dlmamorbootcamp2023.dfs.core.windows.net/"
 		},
 		"FileServer1_properties_typeProperties_host": {
-			"value": "D:\\myfiles\\cars.csv"
+			"value": "D:\\myfiles"
 		},
 		"FileServer1_properties_typeProperties_userId": {
 			"value": "mamorpc"
