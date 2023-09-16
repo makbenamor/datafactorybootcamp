@@ -34,13 +34,15 @@
 						}
 					},
 					"sink": {
-						"type": "AzureSqlSink",
-						"writeBehavior": "upsert",
-						"upsertSettings": {
-							"useTempDB": true
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
 						},
-						"sqlWriterUseTableLock": false,
-						"disableMetricsCollection": false
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
 					},
 					"enableStaging": false,
 					"translator": {
@@ -58,7 +60,7 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"file_name": {
-								"value": "@activity('Get Metadata1').output.childItems",
+								"value": "@activity('Get Metadata1').output.itemName",
 								"type": "Expression"
 							}
 						}
@@ -66,7 +68,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "dynamicsql",
+						"referenceName": "cloudcsvfolderinput",
 						"type": "DatasetReference"
 					}
 				]
@@ -89,7 +91,8 @@
 						"type": "DatasetReference"
 					},
 					"fieldList": [
-						"childItems"
+						"childItems",
+						"itemName"
 					],
 					"storeSettings": {
 						"type": "AzureBlobFSReadSettings",
