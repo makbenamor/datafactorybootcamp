@@ -15,18 +15,11 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"dataflow": {
-						"referenceName": "dataflow1",
-						"type": "DataFlowReference"
-					},
 					"compute": {
 						"coreCount": 8,
 						"computeType": "General"
 					},
-					"traceLevel": "Fine",
-					"continuationSettings": {
-						"customizedCheckpointKey": "02bbfb2d-e3f0-4356-b193-ceb62b506a56"
-					}
+					"traceLevel": "Fine"
 				}
 			}
 		],
