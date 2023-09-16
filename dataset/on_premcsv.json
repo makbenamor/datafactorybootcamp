@@ -1,0 +1,47 @@
+{
+	"name": "on_premcsv",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "FileServer1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "FileServerLocation",
+				"fileName": "cars.csv"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "Make",
+				"type": "String"
+			},
+			{
+				"name": "Model",
+				"type": "String"
+			},
+			{
+				"name": "Type",
+				"type": "String"
+			},
+			{
+				"name": "Origin",
+				"type": "String"
+			},
+			{
+				"name": "DriveTrain",
+				"type": "String"
+			},
+			{
+				"name": "Length",
+				"type": "String"
+			}
+		]
+	}
+}
