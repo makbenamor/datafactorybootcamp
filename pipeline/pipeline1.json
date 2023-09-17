@@ -233,6 +233,12 @@
 				}
 			}
 		],
+		"parameters": {
+			"receiver": {
+				"type": "string",
+				"defaultValue": "dataengineeringmamor@gmail.com"
+			}
+		},
 		"annotations": []
 	}
 }
