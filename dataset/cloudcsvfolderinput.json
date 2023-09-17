@@ -13,6 +13,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
+				"fileName": "the_newcars.csv",
 				"folderPath": "xcc-de-assessment",
 				"fileSystem": "dl-raw"
 			},

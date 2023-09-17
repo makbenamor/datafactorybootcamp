@@ -98,6 +98,7 @@
 					],
 					"storeSettings": {
 						"type": "AzureBlobFSReadSettings",
+						"recursive": true,
 						"enablePartitionDiscovery": false
 					},
 					"formatSettings": {
@@ -110,6 +111,9 @@
 			"table_name": {
 				"type": "String"
 			}
+		},
+		"folder": {
+			"name": "Trainings"
 		},
 		"annotations": []
 	}
