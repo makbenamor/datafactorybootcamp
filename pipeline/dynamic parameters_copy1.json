@@ -112,6 +112,9 @@
 				"type": "String"
 			}
 		},
+		"folder": {
+			"name": "Trainings"
+		},
 		"annotations": []
 	}
 }
