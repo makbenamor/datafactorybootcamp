@@ -16,7 +16,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@variables('the_names')",
+						"value": "@variables('the_names').value",
 						"type": "Expression"
 					},
 					"isSequential": true,
