@@ -45,7 +45,13 @@
 									"writeBehavior": "insert",
 									"sqlWriterUseTableLock": false
 								},
-								"enableStaging": false
+								"enableStaging": true,
+								"stagingSettings": {
+									"linkedServiceName": {
+										"referenceName": "AzureDataLakeStorage1",
+										"type": "LinkedServiceReference"
+									}
+								}
 							},
 							"inputs": [
 								{
@@ -92,12 +98,6 @@
 				}
 			}
 		],
-		"parameters": {
-			"table_name": {
-				"type": "array",
-				"defaultValue": "['circuits', 'constructors', 'drivers', 'laptimes', 'pitstops', 'qualifying', 'races', 'results']"
-			}
-		},
 		"variables": {
 			"the_names": {
 				"type": "Array",
