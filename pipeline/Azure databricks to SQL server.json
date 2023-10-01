@@ -16,7 +16,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@pipeline().parameters.table_name",
+						"value": "@variables('the_names')",
 						"type": "Expression"
 					},
 					"isSequential": true,
@@ -102,7 +102,14 @@
 			"the_names": {
 				"type": "Array",
 				"defaultValue": [
-					"['circuits', 'constructors', 'drivers', 'laptimes', 'pitstops', 'qualifying', 'races', 'results']"
+					"circuits",
+					"constructors",
+					"drivers",
+					"laptimes",
+					"pitstops",
+					"qualifying",
+					"races",
+					"results"
 				]
 			}
 		},
