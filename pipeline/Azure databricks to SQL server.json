@@ -5,7 +5,14 @@
 			{
 				"name": "ForEach1",
 				"type": "ForEach",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "Set variable1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
@@ -43,7 +50,13 @@
 							"inputs": [
 								{
 									"referenceName": "AzureDatabricksDeltaLakeDataset1",
-									"type": "DatasetReference"
+									"type": "DatasetReference",
+									"parameters": {
+										"table_name": {
+											"value": "@item()",
+											"type": "Expression"
+										}
+									}
 								}
 							],
 							"outputs": [
@@ -61,12 +74,36 @@
 						}
 					]
 				}
+			},
+			{
+				"name": "Set variable1",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "the_names",
+					"value": [
+						"['circuits', 'constructors', 'drivers', 'laptimes', 'pitstops', 'qualifying', 'races', 'results']"
+					]
+				}
 			}
 		],
 		"parameters": {
 			"table_name": {
 				"type": "array",
 				"defaultValue": "['circuits', 'constructors', 'drivers', 'laptimes', 'pitstops', 'qualifying', 'races', 'results']"
+			}
+		},
+		"variables": {
+			"the_names": {
+				"type": "Array",
+				"defaultValue": [
+					"['circuits', 'constructors', 'drivers', 'laptimes', 'pitstops', 'qualifying', 'races', 'results']"
+				]
 			}
 		},
 		"annotations": []
