@@ -44,7 +44,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataset": {
-						"referenceName": "AzureSqlTable_destination",
+						"referenceName": "SqlServerTable1",
 						"type": "DatasetReference"
 					},
 					"fieldList": []
