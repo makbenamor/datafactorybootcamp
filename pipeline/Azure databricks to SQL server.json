@@ -41,7 +41,7 @@
 									}
 								},
 								"sink": {
-									"type": "AzureSqlSink",
+									"type": "SqlServerSink",
 									"writeBehavior": "insert",
 									"sqlWriterUseTableLock": false
 								},
@@ -178,14 +178,8 @@
 							],
 							"outputs": [
 								{
-									"referenceName": "AzureSqlTable_destination",
-									"type": "DatasetReference",
-									"parameters": {
-										"table_name": {
-											"value": "@item()",
-											"type": "Expression"
-										}
-									}
+									"referenceName": "on_premdb",
+									"type": "DatasetReference"
 								}
 							]
 						}
