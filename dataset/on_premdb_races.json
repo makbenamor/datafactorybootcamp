@@ -9,8 +9,7 @@
 		"type": "SqlServerTable",
 		"schema": [],
 		"typeProperties": {
-			"schema": "dbo",
-			"table": "Circuits"
+			"schema": "dbo"
 		}
 	}
 }

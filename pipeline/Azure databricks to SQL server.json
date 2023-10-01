@@ -57,15 +57,9 @@
 									}
 								},
 								"sink": {
-									"type": "DelimitedTextSink",
-									"storeSettings": {
-										"type": "AzureBlobFSWriteSettings"
-									},
-									"formatSettings": {
-										"type": "DelimitedTextWriteSettings",
-										"quoteAllText": true,
-										"fileExtension": ".txt"
-									}
+									"type": "SqlServerSink",
+									"writeBehavior": "insert",
+									"sqlWriterUseTableLock": false
 								},
 								"enableStaging": false
 							},
@@ -83,7 +77,7 @@
 							],
 							"outputs": [
 								{
-									"referenceName": "DelimitedText_racestables",
+									"referenceName": "on_premdb_races",
 									"type": "DatasetReference"
 								}
 							]
