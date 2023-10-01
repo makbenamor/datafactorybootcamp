@@ -56,12 +56,35 @@
 										"type": "AzureDatabricksDeltaLakeExportCommand"
 									}
 								},
+								"sink": {
+									"type": "AzureSqlSink",
+									"writeBehavior": "insert",
+									"sqlWriterUseTableLock": false
+								},
 								"enableStaging": false
 							},
 							"inputs": [
 								{
 									"referenceName": "AzureDatabricksDeltaLakeDataset1",
-									"type": "DatasetReference"
+									"type": "DatasetReference",
+									"parameters": {
+										"table_name": {
+											"value": "@item()",
+											"type": "Expression"
+										}
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "AzureSqlTable_destination",
+									"type": "DatasetReference",
+									"parameters": {
+										"table_name": {
+											"value": "@item()",
+											"type": "Expression"
+										}
+									}
 								}
 							]
 						}
