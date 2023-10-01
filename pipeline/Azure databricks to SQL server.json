@@ -112,7 +112,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataset": {
-						"referenceName": "on_premdb_races",
+						"referenceName": "SqlServer_dynamic",
 						"type": "DatasetReference"
 					},
 					"fieldList": [

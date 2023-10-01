@@ -1,0 +1,12 @@
+{
+	"name": "SqlServer_dynamic",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "onpremserver",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": []
+	}
+}
