@@ -38,7 +38,7 @@
 					"isSequential": true,
 					"activities": [
 						{
-							"name": "Copy data2",
+							"name": "Copy from lakehouse to SQL",
 							"type": "Copy",
 							"dependsOn": [],
 							"policy": {
