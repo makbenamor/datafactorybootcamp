@@ -91,10 +91,8 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"variableName": "the_names",
-					"value": [
-						"['circuits', 'constructors', 'drivers', 'laptimes', 'pitstops', 'qualifying', 'races', 'results']"
-					]
+					"variableName": "circuits",
+					"value": "circuits"
 				}
 			}
 		],
@@ -111,6 +109,9 @@
 					"races",
 					"results"
 				]
+			},
+			"circuits": {
+				"type": "String"
 			}
 		},
 		"annotations": []
