@@ -41,7 +41,14 @@
 					"secureOutput": false,
 					"secureInput": false
 				},
-				"userProperties": []
+				"userProperties": [],
+				"typeProperties": {
+					"dataset": {
+						"referenceName": "AzureSqlTable_destination",
+						"type": "DatasetReference"
+					},
+					"fieldList": []
+				}
 			}
 		],
 		"parameters": {
