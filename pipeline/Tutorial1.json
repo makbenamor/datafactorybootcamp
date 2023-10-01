@@ -1,5 +1,5 @@
 {
-	"name": "pipeline1",
+	"name": "Tutorial1",
 	"properties": {
 		"activities": [
 			{
@@ -45,6 +45,7 @@
 					],
 					"storeSettings": {
 						"type": "AzureBlobStorageReadSettings",
+						"recursive": true,
 						"enablePartitionDiscovery": false
 					},
 					"formatSettings": {
