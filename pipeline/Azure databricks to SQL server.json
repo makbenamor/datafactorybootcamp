@@ -43,13 +43,7 @@
 							"inputs": [
 								{
 									"referenceName": "AzureDatabricksDeltaLakeDataset1",
-									"type": "DatasetReference",
-									"parameters": {
-										"table_name": {
-											"value": "@item()",
-											"type": "Expression"
-										}
-									}
+									"type": "DatasetReference"
 								}
 							],
 							"outputs": [
@@ -73,11 +67,6 @@
 			"table_name": {
 				"type": "array",
 				"defaultValue": "['circuits', 'constructors', 'drivers', 'laptimes', 'pitstops', 'qualifying', 'races', 'results']"
-			}
-		},
-		"variables": {
-			"table_names": {
-				"type": "Array"
 			}
 		},
 		"annotations": []
