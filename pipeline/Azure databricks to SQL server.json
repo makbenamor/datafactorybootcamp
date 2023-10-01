@@ -50,7 +50,8 @@
 									"linkedServiceName": {
 										"referenceName": "AzureDataLakeStorage1",
 										"type": "LinkedServiceReference"
-									}
+									},
+									"path": "dl-raw"
 								}
 							},
 							"inputs": [
