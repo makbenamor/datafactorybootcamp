@@ -31,6 +31,11 @@
 				],
 				"userProperties": [],
 				"typeProperties": {
+					"items": {
+						"value": "@pipeline().parameters.table_name",
+						"type": "Expression"
+					},
+					"isSequential": true,
 					"activities": [
 						{
 							"name": "Copy data2",
@@ -66,7 +71,8 @@
 		],
 		"parameters": {
 			"table_name": {
-				"type": "string"
+				"type": "array",
+				"defaultValue": "['circuits', 'constructors', 'drivers', 'laptimes', 'pitstops', 'qualifying', 'races', 'results']"
 			}
 		},
 		"variables": {
