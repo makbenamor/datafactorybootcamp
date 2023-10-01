@@ -178,7 +178,7 @@
 							],
 							"outputs": [
 								{
-									"referenceName": "on_premdb",
+									"referenceName": "on_premdb_races",
 									"type": "DatasetReference"
 								}
 							]

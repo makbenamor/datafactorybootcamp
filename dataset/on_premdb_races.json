@@ -1,0 +1,12 @@
+{
+	"name": "on_premdb_races",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "onpremserver",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": []
+	}
+}
