@@ -5,11 +5,20 @@
 			"referenceName": "onpremserver",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"sql_table_name": {
+				"type": "String"
+			}
+		},
 		"annotations": [],
 		"type": "SqlServerTable",
 		"schema": [],
 		"typeProperties": {
-			"schema": "dbo"
+			"schema": "dbo",
+			"table": {
+				"value": "@dataset().sql_table_name",
+				"type": "Expression"
+			}
 		}
 	}
 }

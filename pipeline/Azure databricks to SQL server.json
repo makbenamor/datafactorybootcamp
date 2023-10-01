@@ -61,7 +61,13 @@
 									"writeBehavior": "insert",
 									"sqlWriterUseTableLock": false
 								},
-								"enableStaging": false
+								"enableStaging": true,
+								"stagingSettings": {
+									"linkedServiceName": {
+										"referenceName": "AzureDataLakeStorage1",
+										"type": "LinkedServiceReference"
+									}
+								}
 							},
 							"inputs": [
 								{
@@ -78,7 +84,13 @@
 							"outputs": [
 								{
 									"referenceName": "on_premdb_races",
-									"type": "DatasetReference"
+									"type": "DatasetReference",
+									"parameters": {
+										"sql_table_name": {
+											"value": "@item().physicalName",
+											"type": "Expression"
+										}
+									}
 								}
 							]
 						}
