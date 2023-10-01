@@ -1,0 +1,32 @@
+{
+	"name": "table_names",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "table_names.json",
+				"fileSystem": "dl-raw"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"Database": {
+					"type": "string"
+				},
+				"tableName": {
+					"type": "string"
+				},
+				"isTemporary": {
+					"type": "boolean"
+				}
+			}
+		}
+	}
+}
