@@ -58,7 +58,10 @@
 								},
 								"sink": {
 									"type": "SqlServerSink",
-									"writeBehavior": "insert",
+									"writeBehavior": "upsert",
+									"upsertSettings": {
+										"useTempDB": false
+									},
 									"sqlWriterUseTableLock": false
 								},
 								"enableStaging": true,
@@ -69,7 +72,8 @@
 									},
 									"path": "staging-container",
 									"enableCompression": true
-								}
+								},
+								"parallelCopies": 10
 							},
 							"inputs": [
 								{
