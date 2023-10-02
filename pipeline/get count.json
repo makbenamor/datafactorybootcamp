@@ -100,7 +100,7 @@
 					},
 					"ifFalseActivities": [
 						{
-							"name": "Wait1",
+							"name": "wait-false",
 							"type": "Wait",
 							"dependsOn": [],
 							"userProperties": [],
