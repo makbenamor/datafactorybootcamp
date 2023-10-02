@@ -5,6 +5,9 @@
 			"referenceName": "on_premsqlserver",
 			"type": "LinkedServiceReference"
 		},
+		"folder": {
+			"name": "Blob-storage"
+		},
 		"annotations": [],
 		"type": "SqlServerTable",
 		"schema": [

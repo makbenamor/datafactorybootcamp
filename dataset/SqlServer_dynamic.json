@@ -5,6 +5,9 @@
 			"referenceName": "onpremserver",
 			"type": "LinkedServiceReference"
 		},
+		"folder": {
+			"name": "SQL server"
+		},
 		"annotations": [],
 		"type": "SqlServerTable",
 		"schema": []
