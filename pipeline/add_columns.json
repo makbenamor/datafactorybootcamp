@@ -18,6 +18,15 @@
 				"typeProperties": {
 					"source": {
 						"type": "SqlServerSource",
+						"additionalColumns": [
+							{
+								"name": "ingestion_date",
+								"value": {
+									"value": "@utcnow()",
+									"type": "Expression"
+								}
+							}
+						],
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
@@ -108,7 +117,8 @@
 							},
 							{
 								"source": {
-									"name": "@utcnow()"
+									"name": "ingestion_date",
+									"type": "String"
 								},
 								"sink": {
 									"name": "Ingestion_date",
