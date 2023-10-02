@@ -1,6 +1,7 @@
 {
 	"name": "SqlServerTable2",
 	"properties": {
+		"description": "adding new column",
 		"linkedServiceName": {
 			"referenceName": "on_premsqlserver",
 			"type": "LinkedServiceReference"
