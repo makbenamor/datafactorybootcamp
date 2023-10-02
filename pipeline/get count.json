@@ -34,8 +34,8 @@
 				}
 			},
 			{
-				"name": "ForEach1",
-				"type": "ForEach",
+				"name": "Set variable1",
+				"type": "SetVariable",
 				"dependsOn": [
 					{
 						"activity": "Get Metadata1",
@@ -44,33 +44,11 @@
 						]
 					}
 				],
-				"userProperties": [],
-				"typeProperties": {
-					"items": {
-						"value": "@activity('Get Metadata1').output.childItems",
-						"type": "Expression"
-					},
-					"isSequential": true,
-					"activities": [
-						{
-							"name": "Set variable1",
-							"type": "SetVariable",
-							"dependsOn": [],
-							"policy": {
-								"secureOutput": false,
-								"secureInput": false
-							},
-							"userProperties": [],
-							"typeProperties": {
-								"variableName": "number_of_files",
-								"value": {
-									"value": "@length(item().value)",
-									"type": "Expression"
-								}
-							}
-						}
-					]
-				}
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": []
 			}
 		],
 		"variables": {
