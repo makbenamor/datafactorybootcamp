@@ -96,7 +96,7 @@
 				"typeProperties": {
 					"variableName": "the_names",
 					"value": [
-						"[,\"laptimes\"]"
+						"laptimes"
 					]
 				}
 			}
@@ -105,14 +105,7 @@
 			"the_names": {
 				"type": "Array",
 				"defaultValue": [
-					"circuits",
-					"constructors",
-					"drivers",
-					"races",
-					"pitstops",
-					"qualifying",
-					"laptimes",
-					"results"
+					"laptimes"
 				]
 			},
 			"circuits": {
