@@ -52,7 +52,7 @@
 				"typeProperties": {
 					"variableName": "count_num_files",
 					"value": {
-						"value": "@length(activity('Filter1').output)",
+						"value": "@length(activity('Filter1').output.value)",
 						"type": "Expression"
 					}
 				}
