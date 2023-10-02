@@ -59,7 +59,10 @@
 							"userProperties": [],
 							"typeProperties": {
 								"variableName": "number_of_files",
-								"value": ""
+								"value": {
+									"value": "@item().value",
+									"type": "Expression"
+								}
 							}
 						}
 					]
