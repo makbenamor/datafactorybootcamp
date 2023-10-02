@@ -32,6 +32,7 @@
 					},
 					"sink": {
 						"type": "SqlServerSink",
+						"preCopyScript": "delete ",
 						"writeBehavior": "insert",
 						"sqlWriterUseTableLock": false
 					},
