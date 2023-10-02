@@ -76,7 +76,7 @@
 						"type": "Expression"
 					},
 					"condition": {
-						"value": "@not(endsWith(item().name, '/'))",
+						"value": "@not(equals(item().type, 'folder' ))",
 						"type": "Expression"
 					}
 				}
