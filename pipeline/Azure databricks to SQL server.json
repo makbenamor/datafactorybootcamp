@@ -47,7 +47,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataset": {
-						"referenceName": "dynamicsql",
+						"referenceName": "on_premdb_races_static",
 						"type": "DatasetReference"
 					},
 					"fieldList": []
