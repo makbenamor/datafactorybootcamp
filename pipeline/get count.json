@@ -48,12 +48,22 @@
 					"secureOutput": false,
 					"secureInput": false
 				},
-				"userProperties": []
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "count_num_files",
+					"value": {
+						"value": "@length(activity('Get Metadata1').output.childItems)",
+						"type": "Expression"
+					}
+				}
 			}
 		],
 		"variables": {
 			"number_of_files": {
 				"type": "Array"
+			},
+			"count_num_files": {
+				"type": "Integer"
 			}
 		},
 		"annotations": []
