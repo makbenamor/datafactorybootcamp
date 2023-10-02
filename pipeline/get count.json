@@ -52,7 +52,7 @@
 				"typeProperties": {
 					"variableName": "count_num_files",
 					"value": {
-						"value": "@length(activity('Get Metadata1').output.childItems)",
+						"value": "@length(activity('Filter1').output)",
 						"type": "Expression"
 					}
 				}
@@ -68,7 +68,17 @@
 						]
 					}
 				],
-				"userProperties": []
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('Get Metadata1').output.childItems",
+						"type": "Expression"
+					},
+					"condition": {
+						"value": "@not(endsWith(item().name, '/'))",
+						"type": "Expression"
+					}
+				}
 			}
 		],
 		"variables": {
