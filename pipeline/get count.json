@@ -95,9 +95,31 @@
 				"userProperties": [],
 				"typeProperties": {
 					"expression": {
-						"value": "@equals()",
+						"value": "@equals(variables('count_num_files'),3)",
 						"type": "Expression"
-					}
+					},
+					"ifFalseActivities": [
+						{
+							"name": "Wait1",
+							"type": "Wait",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"waitTimeInSeconds": 1
+							}
+						}
+					],
+					"ifTrueActivities": [
+						{
+							"name": "Result is correct",
+							"type": "Wait",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"waitTimeInSeconds": 1
+							}
+						}
+					]
 				}
 			}
 		],
