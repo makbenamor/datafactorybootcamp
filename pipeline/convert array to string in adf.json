@@ -16,12 +16,12 @@
 				"userProperties": [],
 				"typeProperties": {
 					"source": {
-						"type": "AzureSqlSource",
+						"type": "SqlServerSource",
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
 					"dataset": {
-						"referenceName": "AzureSqlTable2",
+						"referenceName": "SqlServerTable3",
 						"type": "DatasetReference"
 					},
 					"firstRowOnly": false
@@ -58,7 +58,31 @@
 							"typeProperties": {
 								"variableName": "car_makers",
 								"value": {
-									"value": "@concat(item().make,' ,')",
+									"value": "@concat(variables('list_car_makers'),', ',item().make )",
+									"type": "Expression"
+								}
+							}
+						},
+						{
+							"name": "Set variable1",
+							"type": "SetVariable",
+							"dependsOn": [
+								{
+									"activity": "Set makers",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "list_car_makers",
+								"value": {
+									"value": "@variables('car_makers')",
 									"type": "Expression"
 								}
 							}
@@ -69,6 +93,9 @@
 		],
 		"variables": {
 			"car_makers": {
+				"type": "String"
+			},
+			"list_car_makers": {
 				"type": "String"
 			}
 		},

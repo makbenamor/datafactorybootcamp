@@ -1,5 +1,5 @@
 {
-	"name": "SqlServerTable2",
+	"name": "SqlServerTable3",
 	"properties": {
 		"description": "adding new column",
 		"linkedServiceName": {
