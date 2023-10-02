@@ -82,7 +82,7 @@
 									"type": "DatasetReference",
 									"parameters": {
 										"sql_table_name": {
-											"value": "@item().value",
+											"value": "@item()",
 											"type": "Expression"
 										}
 									}
