@@ -10,6 +10,9 @@
 				"type": "String"
 			}
 		},
+		"folder": {
+			"name": "Blob-storage"
+		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {

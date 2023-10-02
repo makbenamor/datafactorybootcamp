@@ -1,9 +1,12 @@
 {
-	"name": "Json1",
+	"name": "dlraw",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzureDataLakeStorage1",
 			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "Blob-storage"
 		},
 		"annotations": [],
 		"type": "Json",
