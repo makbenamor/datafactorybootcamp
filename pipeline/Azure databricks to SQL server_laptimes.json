@@ -54,7 +54,88 @@
 									"path": "staging-container",
 									"enableCompression": true
 								},
-								"parallelCopies": 10
+								"parallelCopies": 10,
+								"translator": {
+									"type": "TabularTranslator",
+									"mappings": [
+										{
+											"source": {
+												"name": "race_id",
+												"type": "Int"
+											},
+											"sink": {
+												"name": "race_id",
+												"type": "Int32"
+											}
+										},
+										{
+											"source": {
+												"name": "driver_id",
+												"type": "Int"
+											},
+											"sink": {
+												"name": "driver_id",
+												"type": "Int32"
+											}
+										},
+										{
+											"source": {
+												"name": "lap",
+												"type": "Int"
+											},
+											"sink": {
+												"name": "lap",
+												"type": "Int32"
+											}
+										},
+										{
+											"source": {
+												"name": "position",
+												"type": "Int"
+											},
+											"sink": {
+												"name": "position",
+												"type": "Int32"
+											}
+										},
+										{
+											"sink": {
+												"name": "lap_time",
+												"type": "String"
+											}
+										},
+										{
+											"source": {
+												"name": "milliseconds",
+												"type": "Int"
+											},
+											"sink": {
+												"name": "milliseconds",
+												"type": "Int32"
+											}
+										},
+										{
+											"source": {
+												"name": "ingestion_date",
+												"type": "DateTime"
+											},
+											"sink": {
+												"name": "ingestion_date",
+												"type": "Byte[]"
+											}
+										},
+										{
+											"source": {
+												"name": "time",
+												"type": "String"
+											},
+											"sink": {
+												"name": "time",
+												"type": "String"
+											}
+										}
+									]
+								}
 							},
 							"inputs": [
 								{
