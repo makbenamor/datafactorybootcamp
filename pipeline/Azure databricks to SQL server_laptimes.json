@@ -99,6 +99,10 @@
 											}
 										},
 										{
+											"source": {
+												"name": "time",
+												"type": "String"
+											},
 											"sink": {
 												"name": "lap_time",
 												"type": "String"
@@ -112,16 +116,6 @@
 											"sink": {
 												"name": "milliseconds",
 												"type": "Int32"
-											}
-										},
-										{
-											"source": {
-												"name": "ingestion_date",
-												"type": "DateTime"
-											},
-											"sink": {
-												"name": "ingestion_date",
-												"type": "Byte[]"
 											}
 										},
 										{
