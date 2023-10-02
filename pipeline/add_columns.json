@@ -122,8 +122,8 @@
 								},
 								"sink": {
 									"name": "Ingestion_date",
-									"type": "Byte[]",
-									"physicalType": "timestamp"
+									"type": "String",
+									"physicalType": "nvarchar"
 								}
 							}
 						],

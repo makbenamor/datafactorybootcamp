@@ -11,10 +11,41 @@
 		},
 		"annotations": [],
 		"type": "SqlServerTable",
-		"schema": [],
+		"schema": [
+			{
+				"name": "Make",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Model",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Type",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Origin",
+				"type": "nvarchar"
+			},
+			{
+				"name": "DriveTrain",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Length",
+				"type": "decimal",
+				"precision": 18,
+				"scale": 0
+			},
+			{
+				"name": "Ingestion_date",
+				"type": "nvarchar"
+			}
+		],
 		"typeProperties": {
 			"schema": "dbo",
-			"table": "Cars2"
+			"table": "Cars3"
 		}
 	}
 }
