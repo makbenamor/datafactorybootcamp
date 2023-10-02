@@ -18,7 +18,7 @@
 					"source": {
 						"type": "DelimitedTextSource",
 						"storeSettings": {
-							"type": "AzureBlobFSReadSettings",
+							"type": "AzureBlobStorageReadSettings",
 							"recursive": true,
 							"enablePartitionDiscovery": false
 						},
@@ -27,13 +27,57 @@
 						}
 					},
 					"dataset": {
-						"referenceName": "cloudcsvfolderinput",
+						"referenceName": "inputblob_cars3",
 						"type": "DatasetReference"
 					},
-					"firstRowOnly": true
+					"firstRowOnly": false
+				}
+			},
+			{
+				"name": "ForEach1",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Lookup1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('Lookup1').output.value",
+						"type": "Expression"
+					},
+					"isSequential": true,
+					"activities": [
+						{
+							"name": "Set makers",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"policy": {
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "car_makers",
+								"value": {
+									"value": "@concat(item().make,' ,')",
+									"type": "Expression"
+								}
+							}
+						}
+					]
 				}
 			}
 		],
+		"variables": {
+			"car_makers": {
+				"type": "String"
+			}
+		},
 		"annotations": []
 	}
 }
