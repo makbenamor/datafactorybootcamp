@@ -51,9 +51,10 @@
 				"userProperties": [],
 				"typeProperties": {
 					"variableName": "number_of_files",
-					"value": [
-						""
-					]
+					"value": {
+						"value": "@activity('Get Metadata1').output.childItems",
+						"type": "Expression"
+					}
 				}
 			}
 		],
