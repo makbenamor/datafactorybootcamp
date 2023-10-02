@@ -15,10 +15,6 @@
 				],
 				"userProperties": [],
 				"typeProperties": {
-					"items": {
-						"value": "@activity('Get Metadata1').output.structure.physicalName",
-						"type": "Expression"
-					},
 					"isSequential": true,
 					"activities": [
 						{
@@ -45,7 +41,14 @@
 				"typeProperties": {
 					"variableName": "the_names",
 					"value": [
-						""
+						"circuits",
+						"constructors",
+						"drivers",
+						"laptimes",
+						"pitstops",
+						"qualifying",
+						"races",
+						"results"
 					]
 				}
 			}
