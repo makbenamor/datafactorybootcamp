@@ -22,7 +22,7 @@
 							{
 								"name": "ingestion_date",
 								"value": {
-									"value": "@utcnow()",
+									"value": "@adddays(utcnow(),2)",
 									"type": "Expression"
 								}
 							}
