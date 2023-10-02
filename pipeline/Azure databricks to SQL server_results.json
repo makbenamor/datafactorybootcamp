@@ -1,0 +1,259 @@
+{
+	"name": "Azure databricks to SQL server_results",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy data1",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureDatabricksDeltaLakeSource",
+						"exportSettings": {
+							"type": "AzureDatabricksDeltaLakeExportCommand"
+						}
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"preCopyScript": "delete from dbo.results",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": false
+					},
+					"enableStaging": true,
+					"stagingSettings": {
+						"linkedServiceName": {
+							"referenceName": "azureblobstorage_staging",
+							"type": "LinkedServiceReference"
+						},
+						"path": "staging-container",
+						"enableCompression": true
+					},
+					"parallelCopies": 10,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "result_id",
+									"type": "Int64"
+								},
+								"sink": {
+									"name": "result_id",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"name": "constructor_id",
+									"type": "Int64"
+								},
+								"sink": {
+									"name": "constructor_id",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"name": "driver_id",
+									"type": "Int64"
+								},
+								"sink": {
+									"name": "driver_id",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"name": "fastest_lap",
+									"type": "String"
+								},
+								"sink": {
+									"name": "fastest_lap",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "fastest_lap_speed",
+									"type": "String"
+								},
+								"sink": {
+									"name": "fastest_lap_speed",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "fastest_lap_time",
+									"type": "String"
+								},
+								"sink": {
+									"name": "fastest_lap_time",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "grid",
+									"type": "Int64"
+								},
+								"sink": {
+									"name": "grid",
+									"type": "Int64"
+								}
+							},
+							{
+								"source": {
+									"name": "laps",
+									"type": "Int64"
+								},
+								"sink": {
+									"name": "laps",
+									"type": "Int64"
+								}
+							},
+							{
+								"source": {
+									"name": "milliseconds",
+									"type": "String"
+								},
+								"sink": {
+									"name": "milliseconds",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "number",
+									"type": "String"
+								},
+								"sink": {
+									"name": "number",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "points",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "points",
+									"type": "Double"
+								}
+							},
+							{
+								"source": {
+									"name": "position",
+									"type": "String"
+								},
+								"sink": {
+									"name": "position",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "position_order",
+									"type": "Int64"
+								},
+								"sink": {
+									"name": "position_order",
+									"type": "Int64"
+								}
+							},
+							{
+								"source": {
+									"name": "position_text",
+									"type": "String"
+								},
+								"sink": {
+									"name": "position_text",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "race_id",
+									"type": "Int64"
+								},
+								"sink": {
+									"name": "race_id",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"name": "rank",
+									"type": "String"
+								},
+								"sink": {
+									"name": "rank",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "statusId",
+									"type": "Int64"
+								},
+								"sink": {
+									"name": "statusId",
+									"type": "Int64"
+								}
+							},
+							{
+								"source": {
+									"name": "time",
+									"type": "String"
+								},
+								"sink": {
+									"name": "time",
+									"type": "String"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "AzureDatabricksDeltaLakeDataset1",
+						"type": "DatasetReference",
+						"parameters": {
+							"table_name": "results"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "on_premdb_races",
+						"type": "DatasetReference",
+						"parameters": {
+							"sql_table_name": "results"
+						}
+					}
+				]
+			}
+		],
+		"variables": {
+			"the_names": {
+				"type": "Array",
+				"defaultValue": [
+					"laptimes"
+				]
+			},
+			"circuits": {
+				"type": "String"
+			}
+		},
+		"annotations": []
+	}
+}

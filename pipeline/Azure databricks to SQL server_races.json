@@ -1,38 +1,11 @@
 {
-	"name": "Azure databricks to SQL server_laptimes",
+	"name": "Azure databricks to SQL server_races",
 	"properties": {
 		"activities": [
 			{
-				"name": "Stored procedure1",
-				"type": "SqlServerStoredProcedure",
-				"dependsOn": [],
-				"policy": {
-					"timeout": "0.12:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"storedProcedureName": "[dbo].[delete_from_all_tables]"
-				},
-				"linkedServiceName": {
-					"referenceName": "onpremserver",
-					"type": "LinkedServiceReference"
-				}
-			},
-			{
 				"name": "Copy data1",
 				"type": "Copy",
-				"dependsOn": [
-					{
-						"activity": "Stored procedure1",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
+				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
 					"retry": 0,
@@ -50,6 +23,7 @@
 					},
 					"sink": {
 						"type": "SqlServerSink",
+						"preCopyScript": "delete from dbo.races",
 						"writeBehavior": "insert",
 						"sqlWriterUseTableLock": false
 					},
@@ -78,52 +52,62 @@
 							},
 							{
 								"source": {
-									"name": "driver_id",
+									"name": "race_year",
 									"type": "Int"
 								},
 								"sink": {
-									"name": "driver_id",
+									"name": "race_year",
 									"type": "Int32"
 								}
 							},
 							{
 								"source": {
-									"name": "lap",
+									"name": "round",
 									"type": "Int"
 								},
 								"sink": {
-									"name": "lap",
+									"name": "round",
 									"type": "Int32"
 								}
 							},
 							{
 								"source": {
-									"name": "position",
+									"name": "circuit_id",
 									"type": "Int"
 								},
 								"sink": {
-									"name": "position",
+									"name": "circuit_id",
 									"type": "Int32"
 								}
 							},
 							{
 								"source": {
-									"name": "time",
+									"name": "name",
 									"type": "String"
 								},
 								"sink": {
-									"name": "lap_time",
+									"name": "name",
 									"type": "String"
 								}
 							},
 							{
 								"source": {
-									"name": "milliseconds",
-									"type": "Int"
+									"name": "ingestion_date",
+									"type": "DateTime"
 								},
 								"sink": {
-									"name": "milliseconds",
-									"type": "Int32"
+									"name": "race_datetime",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "race_timestamp",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "race_timestamp",
+									"type": "DateTime"
 								}
 							}
 						]
@@ -134,7 +118,7 @@
 						"referenceName": "AzureDatabricksDeltaLakeDataset1",
 						"type": "DatasetReference",
 						"parameters": {
-							"table_name": "laptimes"
+							"table_name": "races"
 						}
 					}
 				],
@@ -143,7 +127,7 @@
 						"referenceName": "on_premdb_races",
 						"type": "DatasetReference",
 						"parameters": {
-							"sql_table_name": "laptimes"
+							"sql_table_name": "races"
 						}
 					}
 				]
