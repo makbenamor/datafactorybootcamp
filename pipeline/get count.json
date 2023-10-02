@@ -32,8 +32,30 @@
 						"type": "DelimitedTextReadSettings"
 					}
 				}
+			},
+			{
+				"name": "Append variable1",
+				"type": "AppendVariable",
+				"dependsOn": [
+					{
+						"activity": "Get Metadata1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "number_of_files",
+					"value": ""
+				}
 			}
 		],
+		"variables": {
+			"number_of_files": {
+				"type": "Array"
+			}
+		},
 		"annotations": []
 	}
 }
