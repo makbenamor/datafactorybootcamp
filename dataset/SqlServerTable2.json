@@ -1,5 +1,5 @@
 {
-	"name": "SqlServerTable1",
+	"name": "SqlServerTable2",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "on_premsqlserver",
