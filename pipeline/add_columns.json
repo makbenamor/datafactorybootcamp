@@ -32,7 +32,7 @@
 					},
 					"sink": {
 						"type": "SqlServerSink",
-						"preCopyScript": "delete ",
+						"preCopyScript": "delete from dbo.cars3",
 						"writeBehavior": "insert",
 						"sqlWriterUseTableLock": false
 					},
