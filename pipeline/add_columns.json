@@ -105,11 +105,6 @@
 									"scale": 0,
 									"precision": 18
 								}
-							},
-							{
-								"sink": {
-									"name": "today"
-								}
 							}
 						],
 						"typeConversion": true,
