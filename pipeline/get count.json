@@ -38,7 +38,7 @@
 				"type": "SetVariable",
 				"dependsOn": [
 					{
-						"activity": "Get Metadata1",
+						"activity": "Filter1",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -56,6 +56,19 @@
 						"type": "Expression"
 					}
 				}
+			},
+			{
+				"name": "Filter1",
+				"type": "Filter",
+				"dependsOn": [
+					{
+						"activity": "Get Metadata1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": []
 			}
 		],
 		"variables": {
