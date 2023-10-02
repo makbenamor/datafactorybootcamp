@@ -1,6 +1,7 @@
 {
 	"name": "convert array to string in adf",
 	"properties": {
+		"description": "concat pipelines variables to have a valid array of values",
 		"activities": [
 			{
 				"name": "Lookup1",
