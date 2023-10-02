@@ -5,6 +5,9 @@
 			"referenceName": "on_premsqlserver",
 			"type": "LinkedServiceReference"
 		},
+		"folder": {
+			"name": "SQL server"
+		},
 		"annotations": [],
 		"type": "SqlServerTable",
 		"schema": []
