@@ -64,10 +64,10 @@
 								"enableStaging": true,
 								"stagingSettings": {
 									"linkedServiceName": {
-										"referenceName": "AzureBlobStorage1",
+										"referenceName": "azureblobstorage_staging",
 										"type": "LinkedServiceReference"
 									},
-									"path": "dl-raw",
+									"path": "staging-container",
 									"enableCompression": true
 								}
 							},
