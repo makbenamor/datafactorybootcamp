@@ -48,7 +48,13 @@
 				"typeProperties": {
 					"dataset": {
 						"referenceName": "on_premdb_races",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"sql_table_name": {
+								"value": "@variables('the_names')",
+								"type": "Expression"
+							}
+						}
 					},
 					"fieldList": [
 						"structure"
