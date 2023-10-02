@@ -160,6 +160,9 @@
 				"type": "String"
 			}
 		},
+		"folder": {
+			"name": "my tutorials"
+		},
 		"annotations": []
 	}
 }
