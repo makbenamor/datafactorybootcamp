@@ -5,9 +5,6 @@
 			"referenceName": "HttpServer1",
 			"type": "LinkedServiceReference"
 		},
-		"folder": {
-			"name": "static datasets"
-		},
 		"annotations": [],
 		"type": "Json",
 		"typeProperties": {

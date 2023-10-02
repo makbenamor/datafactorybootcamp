@@ -5,9 +5,6 @@
 			"referenceName": "AzureBlobStorage1",
 			"type": "LinkedServiceReference"
 		},
-		"folder": {
-			"name": "static datasets"
-		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {

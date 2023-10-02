@@ -10,9 +10,6 @@
 				"type": "String"
 			}
 		},
-		"folder": {
-			"name": "Dynamic Datasets"
-		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {

@@ -10,9 +10,6 @@
 				"type": "String"
 			}
 		},
-		"folder": {
-			"name": "static datasets"
-		},
 		"annotations": [],
 		"type": "AzureSqlTable",
 		"schema": [

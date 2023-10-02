@@ -1,0 +1,7 @@
+{
+	"name": "add_columns",
+	"properties": {
+		"description": "add additional columns during copy in azure Data factory",
+		"annotations": []
+	}
+}
