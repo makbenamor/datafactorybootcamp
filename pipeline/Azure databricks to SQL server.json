@@ -47,18 +47,10 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataset": {
-						"referenceName": "on_premdb_races",
-						"type": "DatasetReference",
-						"parameters": {
-							"sql_table_name": {
-								"value": "@variables('the_names')",
-								"type": "Expression"
-							}
-						}
+						"referenceName": "dynamicsql",
+						"type": "DatasetReference"
 					},
-					"fieldList": [
-						"structure"
-					]
+					"fieldList": []
 				}
 			}
 		],
