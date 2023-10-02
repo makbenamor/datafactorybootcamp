@@ -1,0 +1,124 @@
+{
+	"name": "Azure databricks to SQL server_laptimes",
+	"properties": {
+		"activities": [
+			{
+				"name": "ForEach1",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Set variable1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@variables('the_names')",
+						"type": "Expression"
+					},
+					"isSequential": true,
+					"activities": [
+						{
+							"name": "Copy data1",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "AzureDatabricksDeltaLakeSource",
+									"exportSettings": {
+										"type": "AzureDatabricksDeltaLakeExportCommand"
+									}
+								},
+								"sink": {
+									"type": "SqlServerSink",
+									"writeBehavior": "insert",
+									"sqlWriterUseTableLock": false
+								},
+								"enableStaging": true,
+								"stagingSettings": {
+									"linkedServiceName": {
+										"referenceName": "azureblobstorage_staging",
+										"type": "LinkedServiceReference"
+									},
+									"path": "staging-container",
+									"enableCompression": true
+								},
+								"parallelCopies": 10
+							},
+							"inputs": [
+								{
+									"referenceName": "AzureDatabricksDeltaLakeDataset1",
+									"type": "DatasetReference",
+									"parameters": {
+										"table_name": {
+											"value": "@item()",
+											"type": "Expression"
+										}
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "on_premdb_races",
+									"type": "DatasetReference",
+									"parameters": {
+										"sql_table_name": {
+											"value": "@item()",
+											"type": "Expression"
+										}
+									}
+								}
+							]
+						}
+					]
+				}
+			},
+			{
+				"name": "Set variable1",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "the_names",
+					"value": [
+						"[,\"laptimes\"]"
+					]
+				}
+			}
+		],
+		"variables": {
+			"the_names": {
+				"type": "Array",
+				"defaultValue": [
+					"circuits",
+					"constructors",
+					"drivers",
+					"races",
+					"pitstops",
+					"qualifying",
+					"laptimes",
+					"results"
+				]
+			},
+			"circuits": {
+				"type": "String"
+			}
+		},
+		"annotations": []
+	}
+}
