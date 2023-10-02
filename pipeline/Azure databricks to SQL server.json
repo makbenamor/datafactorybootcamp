@@ -43,8 +43,43 @@
 							},
 							"userProperties": [],
 							"typeProperties": {
+								"source": {
+									"type": "AzureDatabricksDeltaLakeSource",
+									"exportSettings": {
+										"type": "AzureDatabricksDeltaLakeExportCommand"
+									}
+								},
+								"sink": {
+									"type": "SqlServerSink",
+									"writeBehavior": "insert",
+									"sqlWriterUseTableLock": false
+								},
 								"enableStaging": false
-							}
+							},
+							"inputs": [
+								{
+									"referenceName": "AzureDatabricksDeltaLakeDataset1",
+									"type": "DatasetReference",
+									"parameters": {
+										"table_name": {
+											"value": "@item().value",
+											"type": "Expression"
+										}
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "on_premdb_races",
+									"type": "DatasetReference",
+									"parameters": {
+										"sql_table_name": {
+											"value": "@item().value",
+											"type": "Expression"
+										}
+									}
+								}
+							]
 						}
 					]
 				}
