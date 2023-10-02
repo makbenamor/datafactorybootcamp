@@ -15,9 +15,9 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage1'"
 		},
-		"AzureSqlDatabase1_connectionString": {
+		"AzureDatabricksDeltaLake1_accessToken": {
 			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabase1'"
+			"metadata": "Secure string for 'accessToken' of 'AzureDatabricksDeltaLake1'"
 		},
 		"AzureSqlDatabase2_connectionString": {
 			"type": "secureString",
@@ -27,6 +27,19 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'FileServer1'"
 		},
+		"SqlServer1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'SqlServer1'",
+			"defaultValue": "Integrated Security=True;Data Source=device_mamor;Initial Catalog=races_analysis"
+		},
+		"SqlServer1_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'SqlServer1'"
+		},
+		"azureblobstorage_staging_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'azureblobstorage_staging'"
+		},
 		"on_premsqlserver_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'on_premsqlserver'",
@@ -35,6 +48,15 @@
 		"on_premsqlserver_password": {
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'on_premsqlserver'"
+		},
+		"onpremserver_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'onpremserver'",
+			"defaultValue": "Integrated Security=True;Data Source=device_mamor;Initial Catalog=races_analysis"
+		},
+		"onpremserver_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'onpremserver'"
 		},
 		"AzureDataLakeStorage1_properties_typeProperties_url": {
 			"type": "string",
@@ -52,7 +74,15 @@
 			"type": "string",
 			"defaultValue": "https://storage.googleapis.com/"
 		},
+		"SqlServer1_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "device_mamor\\mamorpc"
+		},
 		"on_premsqlserver_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "mamorpc"
+		},
+		"onpremserver_properties_typeProperties_userName": {
 			"type": "string",
 			"defaultValue": "mamorpc"
 		},
@@ -89,35 +119,20 @@
 					"AzureDataLakeStorage1_accountKey": {
 						"value": "[parameters('AzureDataLakeStorage1_accountKey')]"
 					},
-					"AzureSqlDatabase1_connectionString": {
-						"value": "[parameters('AzureSqlDatabase1_connectionString')]"
+					"AzureDatabricksDeltaLake1_accessToken": {
+						"value": "[parameters('AzureDatabricksDeltaLake1_accessToken')]"
 					},
 					"AzureSqlDatabase2_connectionString": {
 						"value": "[parameters('AzureSqlDatabase2_connectionString')]"
 					},
-					"FileServer1_password": {
-						"value": "[parameters('FileServer1_password')]"
-					},
-					"on_premsqlserver_connectionString": {
-						"value": "[parameters('on_premsqlserver_connectionString')]"
-					},
-					"on_premsqlserver_password": {
-						"value": "[parameters('on_premsqlserver_password')]"
+					"azureblobstorage_staging_connectionString": {
+						"value": "[parameters('azureblobstorage_staging_connectionString')]"
 					},
 					"AzureDataLakeStorage1_properties_typeProperties_url": {
 						"value": "[parameters('AzureDataLakeStorage1_properties_typeProperties_url')]"
 					},
 					"HttpServer1_properties_typeProperties_url": {
 						"value": "[parameters('HttpServer1_properties_typeProperties_url')]"
-					},
-					"FileServer1_properties_typeProperties_host": {
-						"value": "[parameters('FileServer1_properties_typeProperties_host')]"
-					},
-					"FileServer1_properties_typeProperties_userId": {
-						"value": "[parameters('FileServer1_properties_typeProperties_userId')]"
-					},
-					"on_premsqlserver_properties_typeProperties_userName": {
-						"value": "[parameters('on_premsqlserver_properties_typeProperties_userName')]"
 					}
 				}
 			},
@@ -136,11 +151,67 @@
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
+					},
+					"FileServer1_password": {
+						"value": "[parameters('FileServer1_password')]"
+					},
+					"SqlServer1_connectionString": {
+						"value": "[parameters('SqlServer1_connectionString')]"
+					},
+					"SqlServer1_password": {
+						"value": "[parameters('SqlServer1_password')]"
+					},
+					"on_premsqlserver_connectionString": {
+						"value": "[parameters('on_premsqlserver_connectionString')]"
+					},
+					"on_premsqlserver_password": {
+						"value": "[parameters('on_premsqlserver_password')]"
+					},
+					"onpremserver_connectionString": {
+						"value": "[parameters('onpremserver_connectionString')]"
+					},
+					"onpremserver_password": {
+						"value": "[parameters('onpremserver_password')]"
+					},
+					"FileServer1_properties_typeProperties_host": {
+						"value": "[parameters('FileServer1_properties_typeProperties_host')]"
+					},
+					"FileServer1_properties_typeProperties_userId": {
+						"value": "[parameters('FileServer1_properties_typeProperties_userId')]"
+					},
+					"SqlServer1_properties_typeProperties_userName": {
+						"value": "[parameters('SqlServer1_properties_typeProperties_userName')]"
+					},
+					"on_premsqlserver_properties_typeProperties_userName": {
+						"value": "[parameters('on_premsqlserver_properties_typeProperties_userName')]"
+					},
+					"onpremserver_properties_typeProperties_userName": {
+						"value": "[parameters('onpremserver_properties_typeProperties_userName')]"
 					}
 				}
 			},
 			"dependsOn": [
 				"[resourceId('Microsoft.Resources/deployments', 'xcceleratedassignment-makram-amor_ArmTemplate_0')]"
+			]
+		},
+		{
+			"name": "xcceleratedassignment-makram-amor_ArmTemplate_2",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_2.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'xcceleratedassignment-makram-amor_ArmTemplate_1')]"
 			]
 		}
 	]

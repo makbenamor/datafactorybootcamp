@@ -11,7 +11,7 @@
 		"AzureDataLakeStorage1_accountKey": {
 			"value": ""
 		},
-		"AzureSqlDatabase1_connectionString": {
+		"AzureDatabricksDeltaLake1_accessToken": {
 			"value": ""
 		},
 		"AzureSqlDatabase2_connectionString": {
@@ -20,10 +20,25 @@
 		"FileServer1_password": {
 			"value": ""
 		},
+		"SqlServer1_connectionString": {
+			"value": "Integrated Security=True;Data Source=device_mamor;Initial Catalog=races_analysis"
+		},
+		"SqlServer1_password": {
+			"value": ""
+		},
+		"azureblobstorage_staging_connectionString": {
+			"value": ""
+		},
 		"on_premsqlserver_connectionString": {
 			"value": "Integrated Security=True;Data Source=DEVICE_MAMOR;Initial Catalog=sales"
 		},
 		"on_premsqlserver_password": {
+			"value": ""
+		},
+		"onpremserver_connectionString": {
+			"value": "Integrated Security=True;Data Source=device_mamor;Initial Catalog=races_analysis"
+		},
+		"onpremserver_password": {
 			"value": ""
 		},
 		"AzureDataLakeStorage1_properties_typeProperties_url": {
@@ -38,7 +53,13 @@
 		"HttpServer1_properties_typeProperties_url": {
 			"value": "https://storage.googleapis.com/"
 		},
+		"SqlServer1_properties_typeProperties_userName": {
+			"value": "device_mamor\\mamorpc"
+		},
 		"on_premsqlserver_properties_typeProperties_userName": {
+			"value": "mamorpc"
+		},
+		"onpremserver_properties_typeProperties_userName": {
 			"value": "mamorpc"
 		}
 	}
