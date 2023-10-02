@@ -51,7 +51,10 @@
 								},
 								"sink": {
 									"type": "SqlServerSink",
-									"writeBehavior": "insert",
+									"writeBehavior": "upsert",
+									"upsertSettings": {
+										"useTempDB": true
+									},
 									"sqlWriterUseTableLock": false
 								},
 								"enableStaging": true,
@@ -70,7 +73,7 @@
 									"type": "DatasetReference",
 									"parameters": {
 										"table_name": {
-											"value": "@item().value",
+											"value": "@item()",
 											"type": "Expression"
 										}
 									}
