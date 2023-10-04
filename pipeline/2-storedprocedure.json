@@ -1,5 +1,5 @@
 {
-	"name": "1-metadata",
+	"name": "2-storedprocedure",
 	"properties": {
 		"activities": [
 			{
@@ -20,7 +20,9 @@
 						"type": "DatasetReference"
 					},
 					"fieldList": [
-						"childItems"
+						"childItems",
+						"itemName",
+						"lastModified"
 					],
 					"storeSettings": {
 						"type": "AzureBlobFSReadSettings",
@@ -58,8 +60,6 @@
 			{
 				"name": "ForEach1",
 				"type": "ForEach",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "Filter1",
@@ -74,12 +74,11 @@
 						"value": "@activity('Filter1').output.value",
 						"type": "Expression"
 					},
-					"isSequential": false,
-					"batchCount": 4,
+					"isSequential": true,
 					"activities": [
 						{
-							"name": "Copy data1",
-							"type": "Copy",
+							"name": "Stored procedure1",
+							"type": "SqlServerStoredProcedure",
 							"dependsOn": [],
 							"policy": {
 								"timeout": "0.12:00:00",
@@ -90,47 +89,35 @@
 							},
 							"userProperties": [],
 							"typeProperties": {
-								"source": {
-									"type": "DelimitedTextSource",
-									"storeSettings": {
-										"type": "AzureBlobFSReadSettings",
-										"recursive": true,
-										"enablePartitionDiscovery": false
-									},
-									"formatSettings": {
-										"type": "DelimitedTextReadSettings"
-									}
-								},
-								"sink": {
-									"type": "JsonSink",
-									"storeSettings": {
-										"type": "AzureBlobFSWriteSettings",
-										"copyBehavior": "PreserveHierarchy"
-									},
-									"formatSettings": {
-										"type": "JsonWriteSettings"
-									}
-								},
-								"enableStaging": false
-							},
-							"inputs": [
-								{
-									"referenceName": "Dynamic_csv",
-									"type": "DatasetReference",
-									"parameters": {
-										"file_name": {
+								"storedProcedureName": "[dbo].[usp_InsertFileControlData]",
+								"storedProcedureParameters": {
+									"p_filename": {
+										"value": {
 											"value": "@item().name",
 											"type": "Expression"
-										}
+										},
+										"type": "String"
+									},
+									"p_LastModifiedDate": {
+										"value": {
+											"value": "@activity('Get Metadata1').output.lastModified",
+											"type": "Expression"
+										},
+										"type": "DateTime"
+									},
+									"p_RecordInsertDate": {
+										"value": {
+											"value": "@utcnow()",
+											"type": "Expression"
+										},
+										"type": "DateTime"
 									}
 								}
-							],
-							"outputs": [
-								{
-									"referenceName": "dlraw_cleaned",
-									"type": "DatasetReference"
-								}
-							]
+							},
+							"linkedServiceName": {
+								"referenceName": "AzureSqlDatabase2",
+								"type": "LinkedServiceReference"
+							}
 						}
 					]
 				}
