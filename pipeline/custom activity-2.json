@@ -1,0 +1,67 @@
+{
+	"name": "custom activity-2",
+	"properties": {
+		"description": "ADF will execute a python function to calculate the cube of a number",
+		"activities": [
+			{
+				"name": "ForEach1",
+				"type": "ForEach",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@variables('numbers')",
+						"type": "Expression"
+					},
+					"isSequential": true,
+					"activities": [
+						{
+							"name": "Custom1",
+							"type": "Custom",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"command": {
+									"value": "@concat('python cube.py',item())",
+									"type": "Expression"
+								},
+								"resourceLinkedService": {
+									"referenceName": "AzureBlobStorage1",
+									"type": "LinkedServiceReference"
+								},
+								"folderPath": "dl-raw",
+								"referenceObjects": {
+									"linkedServices": [],
+									"datasets": []
+								}
+							},
+							"linkedServiceName": {
+								"referenceName": "AzureBatch1",
+								"type": "LinkedServiceReference"
+							}
+						}
+					]
+				}
+			}
+		],
+		"variables": {
+			"numbers": {
+				"type": "Array",
+				"defaultValue": [
+					1,
+					2,
+					3,
+					4
+				]
+			}
+		},
+		"annotations": []
+	}
+}
