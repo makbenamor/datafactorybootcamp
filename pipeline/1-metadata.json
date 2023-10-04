@@ -68,7 +68,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@activity('Filter1').output",
+						"value": "@activity('Filter1').output.value",
 						"type": "Expression"
 					},
 					"isSequential": false,
@@ -116,7 +116,7 @@
 									"type": "DatasetReference",
 									"parameters": {
 										"file_name": {
-											"value": "@item()",
+											"value": "@item().name",
 											"type": "Expression"
 										}
 									}
