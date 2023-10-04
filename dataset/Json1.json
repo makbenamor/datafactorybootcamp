@@ -1,0 +1,33 @@
+{
+	"name": "Json1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "HttpServer2",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "HttpServerLocation"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"userId": {
+					"type": "integer"
+				},
+				"id": {
+					"type": "integer"
+				},
+				"title": {
+					"type": "string"
+				},
+				"completed": {
+					"type": "boolean"
+				}
+			}
+		}
+	}
+}
