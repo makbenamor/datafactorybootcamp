@@ -1,0 +1,18 @@
+{
+	"name": "AzureBatch1",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureBatch",
+		"typeProperties": {
+			"batchUri": "https://batchaccountmamor.westeurope.batch.azure.com",
+			"poolName": "pool1-mamor2023",
+			"accountName": "batchaccountmamor",
+			"linkedServiceName": {
+				"referenceName": "AzureBlobStorage1",
+				"type": "LinkedServiceReference"
+			},
+			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQDFFMEUyNUQyLTFFRTctNEI1Qi1CODc0LTEwQTUwMjFEMzMwNF83NGMzOGJiYi00MWVlLTRlZGQtYmI0Yi01N2JiMDM3YjZkMjciDQp9"
+		}
+	}
+}
