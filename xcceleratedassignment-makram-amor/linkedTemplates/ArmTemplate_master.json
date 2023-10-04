@@ -7,6 +7,10 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "xcceleratedassignment-makram-amor"
 		},
+		"AzureBatch1_accessKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accessKey' of 'AzureBatch1'"
+		},
 		"AzureBlobStorage1_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage1'"
@@ -18,6 +22,10 @@
 		"AzureDatabricksDeltaLake1_accessToken": {
 			"type": "secureString",
 			"metadata": "Secure string for 'accessToken' of 'AzureDatabricksDeltaLake1'"
+		},
+		"AzureFunction1_functionKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'functionKey' of 'AzureFunction1'"
 		},
 		"AzureSqlDatabase2_connectionString": {
 			"type": "secureString",
@@ -58,9 +66,25 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'onpremserver'"
 		},
+		"AzureBatch1_properties_typeProperties_batchUri": {
+			"type": "string",
+			"defaultValue": "https://batchaccountmamor.westeurope.batch.azure.com"
+		},
+		"AzureBatch1_properties_typeProperties_poolName": {
+			"type": "string",
+			"defaultValue": "pool1-mamor2023"
+		},
+		"AzureBatch1_properties_typeProperties_accountName": {
+			"type": "string",
+			"defaultValue": "batchaccountmamor"
+		},
 		"AzureDataLakeStorage1_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://dlmamorbootcamp2023.dfs.core.windows.net/"
+		},
+		"AzureFunction1_properties_typeProperties_functionAppUrl": {
+			"type": "string",
+			"defaultValue": "https://function-app-custom.azurewebsites.net"
 		},
 		"FileServer1_properties_typeProperties_host": {
 			"type": "string",
@@ -73,6 +97,10 @@
 		"HttpServer1_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://storage.googleapis.com/"
+		},
+		"HttpServer2_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://function-app-custom.azurewebsites.net/api/HttpTrigger1"
 		},
 		"SqlServer1_properties_typeProperties_userName": {
 			"type": "string",
@@ -122,6 +150,9 @@
 					"AzureDatabricksDeltaLake1_accessToken": {
 						"value": "[parameters('AzureDatabricksDeltaLake1_accessToken')]"
 					},
+					"AzureFunction1_functionKey": {
+						"value": "[parameters('AzureFunction1_functionKey')]"
+					},
 					"AzureSqlDatabase2_connectionString": {
 						"value": "[parameters('AzureSqlDatabase2_connectionString')]"
 					},
@@ -131,8 +162,14 @@
 					"AzureDataLakeStorage1_properties_typeProperties_url": {
 						"value": "[parameters('AzureDataLakeStorage1_properties_typeProperties_url')]"
 					},
+					"AzureFunction1_properties_typeProperties_functionAppUrl": {
+						"value": "[parameters('AzureFunction1_properties_typeProperties_functionAppUrl')]"
+					},
 					"HttpServer1_properties_typeProperties_url": {
 						"value": "[parameters('HttpServer1_properties_typeProperties_url')]"
+					},
+					"HttpServer2_properties_typeProperties_url": {
+						"value": "[parameters('HttpServer2_properties_typeProperties_url')]"
 					}
 				}
 			},
@@ -151,6 +188,9 @@
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
+					},
+					"AzureBatch1_accessKey": {
+						"value": "[parameters('AzureBatch1_accessKey')]"
 					},
 					"FileServer1_password": {
 						"value": "[parameters('FileServer1_password')]"
@@ -172,6 +212,15 @@
 					},
 					"onpremserver_password": {
 						"value": "[parameters('onpremserver_password')]"
+					},
+					"AzureBatch1_properties_typeProperties_batchUri": {
+						"value": "[parameters('AzureBatch1_properties_typeProperties_batchUri')]"
+					},
+					"AzureBatch1_properties_typeProperties_poolName": {
+						"value": "[parameters('AzureBatch1_properties_typeProperties_poolName')]"
+					},
+					"AzureBatch1_properties_typeProperties_accountName": {
+						"value": "[parameters('AzureBatch1_properties_typeProperties_accountName')]"
 					},
 					"FileServer1_properties_typeProperties_host": {
 						"value": "[parameters('FileServer1_properties_typeProperties_host')]"

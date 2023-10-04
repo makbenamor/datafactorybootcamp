@@ -5,6 +5,9 @@
 		"factoryName": {
 			"value": "xcceleratedassignment-makram-amor"
 		},
+		"AzureBatch1_accessKey": {
+			"value": ""
+		},
 		"AzureBlobStorage1_connectionString": {
 			"value": ""
 		},
@@ -12,6 +15,9 @@
 			"value": ""
 		},
 		"AzureDatabricksDeltaLake1_accessToken": {
+			"value": ""
+		},
+		"AzureFunction1_functionKey": {
 			"value": ""
 		},
 		"AzureSqlDatabase2_connectionString": {
@@ -41,8 +47,20 @@
 		"onpremserver_password": {
 			"value": ""
 		},
+		"AzureBatch1_properties_typeProperties_batchUri": {
+			"value": "https://batchaccountmamor.westeurope.batch.azure.com"
+		},
+		"AzureBatch1_properties_typeProperties_poolName": {
+			"value": "pool1-mamor2023"
+		},
+		"AzureBatch1_properties_typeProperties_accountName": {
+			"value": "batchaccountmamor"
+		},
 		"AzureDataLakeStorage1_properties_typeProperties_url": {
 			"value": "https://dlmamorbootcamp2023.dfs.core.windows.net/"
+		},
+		"AzureFunction1_properties_typeProperties_functionAppUrl": {
+			"value": "https://function-app-custom.azurewebsites.net"
 		},
 		"FileServer1_properties_typeProperties_host": {
 			"value": "D:\\myfiles"
@@ -52,6 +70,9 @@
 		},
 		"HttpServer1_properties_typeProperties_url": {
 			"value": "https://storage.googleapis.com/"
+		},
+		"HttpServer2_properties_typeProperties_url": {
+			"value": "https://function-app-custom.azurewebsites.net/api/HttpTrigger1"
 		},
 		"SqlServer1_properties_typeProperties_userName": {
 			"value": "device_mamor\\mamorpc"

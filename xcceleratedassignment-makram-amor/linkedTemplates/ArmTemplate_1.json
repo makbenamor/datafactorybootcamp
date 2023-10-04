@@ -7,6 +7,10 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "xcceleratedassignment-makram-amor"
 		},
+		"AzureBatch1_accessKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accessKey' of 'AzureBatch1'"
+		},
 		"FileServer1_password": {
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'FileServer1'"
@@ -38,6 +42,18 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'onpremserver'"
 		},
+		"AzureBatch1_properties_typeProperties_batchUri": {
+			"type": "string",
+			"defaultValue": "https://batchaccountmamor.westeurope.batch.azure.com"
+		},
+		"AzureBatch1_properties_typeProperties_poolName": {
+			"type": "string",
+			"defaultValue": "pool1-mamor2023"
+		},
+		"AzureBatch1_properties_typeProperties_accountName": {
+			"type": "string",
+			"defaultValue": "batchaccountmamor"
+		},
 		"FileServer1_properties_typeProperties_host": {
 			"type": "string",
 			"defaultValue": "D:\\myfiles"
@@ -63,6 +79,107 @@
 		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
 	},
 	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/dlraw')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureDataLakeStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "Blob-storage"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileSystem": "dl-raw"
+					}
+				},
+				"schema": {}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/dynamicsql')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabase2",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "SQL server"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [],
+				"typeProperties": {}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/inputblob')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureBlobStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "Blob-storage"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "cars.csv",
+						"container": "dl-raw"
+					},
+					"columnDelimiter": ",",
+					"rowDelimiter": "\n",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/rawfolder')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureDataLakeStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "Blob-storage"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileSystem": "dl-raw"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": []
+		},
 		{
 			"name": "[concat(parameters('factoryName'), '/table_names')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
@@ -96,6 +213,29 @@
 						"isTemporary": {
 							"type": "boolean"
 						}
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureBatch1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBatch",
+				"typeProperties": {
+					"batchUri": "[parameters('AzureBatch1_properties_typeProperties_batchUri')]",
+					"poolName": "[parameters('AzureBatch1_properties_typeProperties_poolName')]",
+					"accountName": "[parameters('AzureBatch1_properties_typeProperties_accountName')]",
+					"linkedServiceName": {
+						"referenceName": "AzureBlobStorage1",
+						"type": "LinkedServiceReference"
+					},
+					"accessKey": {
+						"type": "SecureString",
+						"value": "[parameters('AzureBatch1_accessKey')]"
 					}
 				}
 			},
@@ -448,7 +588,9 @@
 				},
 				"annotations": []
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/inputblob')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/blob to sql')]",
@@ -597,17 +739,20 @@
 				},
 				"annotations": []
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/inputblob')]"
+			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/convert array to string in adf')]",
+			"name": "[concat(parameters('factoryName'), '/custom activity-1')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
+				"description": "Fetch Data from an API using Azure Functions & Integrate with ADF\n\nObjective: Use an Azure Function to fetch data from a sample API (e.g., a public JSON placeholder API) and store it in Azure Blob Storage. Then, utilize ADF to move this data to a desired sink (e.g., Azure SQL Database).",
 				"activities": [
 					{
-						"name": "Lookup1",
-						"type": "Lookup",
+						"name": "Azure Function1",
+						"type": "AzureFunctionActivity",
 						"dependsOn": [],
 						"policy": {
 							"timeout": "0.12:00:00",
@@ -618,24 +763,117 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
+							"functionName": "HttpTrigger1",
+							"method": "GET",
+							"headers": {}
+						},
+						"linkedServiceName": {
+							"referenceName": "AzureFunction1",
+							"type": "LinkedServiceReference"
+						}
+					},
+					{
+						"name": "Copy data1",
+						"type": "Copy",
+						"dependsOn": [
+							{
+								"activity": "Azure Function1",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
 							"source": {
-								"type": "DelimitedTextSource",
+								"type": "JsonSource",
 								"storeSettings": {
-									"type": "AzureBlobFSReadSettings",
-									"recursive": true,
-									"enablePartitionDiscovery": false
+									"type": "HttpReadSettings",
+									"requestMethod": "GET"
 								},
 								"formatSettings": {
-									"type": "DelimitedTextReadSettings"
+									"type": "JsonReadSettings"
 								}
 							},
-							"dataset": {
-								"referenceName": "cloudcsvfolderinput",
+							"sink": {
+								"type": "AzureSqlSink",
+								"preCopyScript": "delete from dbo.users",
+								"writeBehavior": "insert",
+								"sqlWriterUseTableLock": false,
+								"disableMetricsCollection": false
+							},
+							"enableStaging": true,
+							"stagingSettings": {
+								"linkedServiceName": {
+									"referenceName": "azureblobstorage_staging",
+									"type": "LinkedServiceReference"
+								},
+								"path": "staging-container"
+							},
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"path": "$['userId']"
+										},
+										"sink": {
+											"name": "userId",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"path": "$['id']"
+										},
+										"sink": {
+											"name": "id",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"path": "$['title']"
+										},
+										"sink": {
+											"name": "title",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "$['completed']"
+										},
+										"sink": {
+											"name": "completed",
+											"type": "Boolean"
+										}
+									}
+								],
+								"collectionReference": ""
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "Json1",
 								"type": "DatasetReference",
 								"parameters": {}
-							},
-							"firstRowOnly": true
-						}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "AzureSqlTable3users",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
 					}
 				],
 				"policy": {
@@ -644,6 +882,81 @@
 				"annotations": []
 			},
 			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/custom activity-2')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "ADF will execute a python function to calculate the cube of a number",
+				"activities": [
+					{
+						"name": "ForEach1",
+						"type": "ForEach",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@variables('numbers')",
+								"type": "Expression"
+							},
+							"isSequential": true,
+							"activities": [
+								{
+									"name": "Custom1",
+									"type": "Custom",
+									"dependsOn": [],
+									"policy": {
+										"timeout": "0.12:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"command": {
+											"value": "@concat('python cube.py',item())",
+											"type": "Expression"
+										},
+										"resourceLinkedService": {
+											"referenceName": "AzureBlobStorage1",
+											"type": "LinkedServiceReference"
+										},
+										"folderPath": "dl-raw/python",
+										"referenceObjects": {
+											"linkedServices": [],
+											"datasets": []
+										}
+									},
+									"linkedServiceName": {
+										"referenceName": "AzureBatch1",
+										"type": "LinkedServiceReference"
+									}
+								}
+							]
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"variables": {
+					"numbers": {
+						"type": "Array",
+						"defaultValue": [
+							1,
+							2,
+							3,
+							4
+						]
+					}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureBatch1')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/dynamic parameters')]",
@@ -766,7 +1079,9 @@
 				},
 				"annotations": []
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/rawfolder')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/dynamic parameters_copy1')]",
@@ -893,7 +1208,9 @@
 				},
 				"annotations": []
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/rawfolder')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/get count')]",
@@ -1039,7 +1356,9 @@
 				},
 				"annotations": []
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/rawfolder')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/move data from web to dl')]",
@@ -1106,7 +1425,9 @@
 				"annotations": [],
 				"lastPublishTime": "2023-09-07T08:24:38Z"
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/dlraw')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/SqlServerTable1')]",
@@ -1133,7 +1454,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/SqlServerTable2')]",
+			"name": "[concat(parameters('factoryName'), '/SqlServerTable3')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -1186,364 +1507,6 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/on_premsqlserver')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/SqlServer_dynamic')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "onpremserver",
-					"type": "LinkedServiceReference"
-				},
-				"folder": {
-					"name": "SQL server"
-				},
-				"annotations": [],
-				"type": "SqlServerTable",
-				"schema": [],
-				"typeProperties": {}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/onpremserver')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/on_premcsv')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "FileServer1",
-					"type": "LinkedServiceReference"
-				},
-				"folder": {
-					"name": "Blob-storage"
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "FileServerLocation",
-						"fileName": "cars.csv"
-					},
-					"columnDelimiter": ",",
-					"escapeChar": "\\",
-					"firstRowAsHeader": true,
-					"quoteChar": "\""
-				},
-				"schema": [
-					{
-						"name": "Make",
-						"type": "String"
-					},
-					{
-						"name": "Model",
-						"type": "String"
-					},
-					{
-						"name": "Type",
-						"type": "String"
-					},
-					{
-						"name": "Origin",
-						"type": "String"
-					},
-					{
-						"name": "DriveTrain",
-						"type": "String"
-					},
-					{
-						"name": "Length",
-						"type": "String"
-					}
-				]
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/FileServer1')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/on_premdb')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "on_premsqlserver",
-					"type": "LinkedServiceReference"
-				},
-				"folder": {
-					"name": "Blob-storage"
-				},
-				"annotations": [],
-				"type": "SqlServerTable",
-				"schema": [
-					{
-						"name": "Make",
-						"type": "nvarchar"
-					},
-					{
-						"name": "Model",
-						"type": "nvarchar"
-					},
-					{
-						"name": "Type",
-						"type": "nvarchar"
-					},
-					{
-						"name": "Origin",
-						"type": "nvarchar"
-					},
-					{
-						"name": "DriveTrain",
-						"type": "nvarchar"
-					},
-					{
-						"name": "Length",
-						"type": "decimal",
-						"precision": 18,
-						"scale": 0
-					}
-				],
-				"typeProperties": {
-					"schema": "dbo",
-					"table": "Cars"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/on_premsqlserver')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/on_premdb_races')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "onpremserver",
-					"type": "LinkedServiceReference"
-				},
-				"parameters": {
-					"sql_table_name": {
-						"type": "String"
-					}
-				},
-				"folder": {
-					"name": "SQL server"
-				},
-				"annotations": [],
-				"type": "SqlServerTable",
-				"schema": [],
-				"typeProperties": {
-					"schema": "dbo",
-					"table": {
-						"value": "@dataset().sql_table_name",
-						"type": "Expression"
-					}
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/onpremserver')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/on_premdb_races_static')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "onpremserver",
-					"type": "LinkedServiceReference"
-				},
-				"parameters": {
-					"sql_table_name": {
-						"type": "String"
-					}
-				},
-				"folder": {
-					"name": "SQL server"
-				},
-				"annotations": [],
-				"type": "SqlServerTable",
-				"schema": [],
-				"typeProperties": {
-					"schema": "dbo",
-					"table": "*"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/onpremserver')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Azure databricks to SQL server')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "ForEach1",
-						"type": "ForEach",
-						"dependsOn": [
-							{
-								"activity": "Set variable1",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"items": {
-								"value": "@variables('the_names')",
-								"type": "Expression"
-							},
-							"isSequential": true,
-							"activities": [
-								{
-									"name": "Copy data1",
-									"type": "Copy",
-									"dependsOn": [],
-									"policy": {
-										"timeout": "0.12:00:00",
-										"retry": 0,
-										"retryIntervalInSeconds": 30,
-										"secureOutput": false,
-										"secureInput": false
-									},
-									"userProperties": [],
-									"typeProperties": {
-										"source": {
-											"type": "AzureDatabricksDeltaLakeSource",
-											"exportSettings": {
-												"type": "AzureDatabricksDeltaLakeExportCommand"
-											}
-										},
-										"sink": {
-											"type": "SqlServerSink",
-											"writeBehavior": "insert",
-											"sqlWriterUseTableLock": false
-										},
-										"enableStaging": true,
-										"stagingSettings": {
-											"linkedServiceName": {
-												"referenceName": "azureblobstorage_staging",
-												"type": "LinkedServiceReference"
-											},
-											"path": "staging-container",
-											"enableCompression": true
-										},
-										"parallelCopies": 10
-									},
-									"inputs": [
-										{
-											"referenceName": "AzureDatabricksDeltaLakeDataset1",
-											"type": "DatasetReference",
-											"parameters": {
-												"table_name": {
-													"value": "@item()",
-													"type": "Expression"
-												}
-											}
-										}
-									],
-									"outputs": [
-										{
-											"referenceName": "on_premdb_races",
-											"type": "DatasetReference",
-											"parameters": {
-												"sql_table_name": {
-													"value": "@item()",
-													"type": "Expression"
-												}
-											}
-										}
-									]
-								}
-							]
-						}
-					},
-					{
-						"name": "Set variable1",
-						"type": "SetVariable",
-						"dependsOn": [
-							{
-								"activity": "Stored procedure1",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"variableName": "the_names",
-							"value": [
-								"circuits",
-								"constructors",
-								"drivers",
-								"races",
-								"pitstops",
-								"qualifying",
-								"laptimes",
-								"results"
-							]
-						}
-					},
-					{
-						"name": "Stored procedure1",
-						"type": "SqlServerStoredProcedure",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"storedProcedureName": "[[dbo].[delete_from_all_tables]"
-						},
-						"linkedServiceName": {
-							"referenceName": "onpremserver",
-							"type": "LinkedServiceReference"
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {}
-				},
-				"variables": {
-					"the_names": {
-						"type": "Array",
-						"defaultValue": [
-							"circuits",
-							"constructors",
-							"drivers",
-							"races",
-							"pitstops",
-							"qualifying",
-							"laptimes",
-							"results"
-						]
-					},
-					"circuits": {
-						"type": "String"
-					}
-				},
-				"folder": {
-					"name": "my tutorials"
-				},
-				"annotations": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/onpremserver')]",
-				"[concat(variables('factoryId'), '/datasets/on_premdb_races')]"
 			]
 		}
 	]
