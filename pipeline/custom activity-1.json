@@ -1,5 +1,5 @@
 {
-	"name": "custom activity",
+	"name": "custom activity-1",
 	"properties": {
 		"description": "Fetch Data from an API using Azure Functions & Integrate with ADF\n\nObjective: Use an Azure Function to fetch data from a sample API (e.g., a public JSON placeholder API) and store it in Azure Blob Storage. Then, utilize ADF to move this data to a desired sink (e.g., Azure SQL Database).",
 		"activities": [
