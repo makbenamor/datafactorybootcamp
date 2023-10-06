@@ -16,17 +16,13 @@
 			"sinks": [
 				{
 					"dataset": {
-						"referenceName": "AzureSqlTable3_customers",
+						"referenceName": "AzureSqlTable3users",
 						"type": "DatasetReference"
 					},
-					"name": "sink1"
+					"name": "sink2"
 				}
 			],
-			"transformations": [
-				{
-					"name": "alterRow1"
-				}
-			],
+			"transformations": [],
 			"scriptLines": [
 				"source(output(",
 				"          user_id as short,",
@@ -40,36 +36,16 @@
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false) ~> source1",
-				"source1 alterRow(upsertIf(1==1)) ~> alterRow1",
-				"alterRow1 sink(allowSchemaDrift: true,",
+				"source1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     input(",
-				"          user_id as integer,",
-				"          first_name as string,",
-				"          last_name as string,",
-				"          age as integer,",
-				"          gender as string,",
-				"          country as string,",
-				"          email as string",
-				"     ),",
 				"     deletable:false,",
-				"     insertable:false,",
+				"     insertable:true,",
 				"     updateable:false,",
-				"     upsertable:true,",
-				"     keys:[(user_id)],",
+				"     upsertable:false,",
 				"     format: 'table',",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
-				"     errorHandlingOption: 'stopOnFirstError',",
-				"     mapColumn(",
-				"          user_id,",
-				"          first_name,",
-				"          last_name,",
-				"          gender,",
-				"          age,",
-				"          country,",
-				"          email = {email\r}",
-				"     )) ~> sink1"
+				"     errorHandlingOption: 'stopOnFirstError') ~> sink2"
 			]
 		}
 	}
