@@ -1,0 +1,30 @@
+{
+	"name": "dlraw_dynamic",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"file_name_2": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "Blob-storage"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@dataset().file_name_2",
+					"type": "Expression"
+				},
+				"fileSystem": "dl-raw"
+			}
+		},
+		"schema": {}
+	}
+}
