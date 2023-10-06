@@ -16,7 +16,7 @@
 			"sinks": [
 				{
 					"dataset": {
-						"referenceName": "AzureSqlTable3users",
+						"referenceName": "AzureSqlTable3users_scd",
 						"type": "DatasetReference"
 					},
 					"name": "sink2"
@@ -43,11 +43,20 @@
 				"source1 alterRow(upsertIf(1==1)) ~> alterRow1",
 				"alterRow1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
+				"     input(",
+				"          user_id as integer,",
+				"          first_name as string,",
+				"          last_name as string,",
+				"          age as integer,",
+				"          gender as string,",
+				"          country as string,",
+				"          email as string",
+				"     ),",
 				"     deletable:false,",
 				"     insertable:false,",
 				"     updateable:false,",
 				"     upsertable:true,",
-				"     keys:['\\'user_id\\''],",
+				"     keys:[('user_id')],",
 				"     format: 'table',",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
