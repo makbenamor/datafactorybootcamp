@@ -103,6 +103,42 @@
 							"typeProperties": {
 								"waitTimeInSeconds": 1
 							}
+						},
+						{
+							"name": "update the last execution date",
+							"type": "SqlServerStoredProcedure",
+							"dependsOn": [
+								{
+									"activity": "last modified date is greater than last execution date",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"storedProcedureName": "[dbo].[usp_updatelastexecutionDate]",
+								"storedProcedureParameters": {
+									"ExecutionDate": {
+										"value": {
+											"value": "@addhours(activity('Last Modified Date').output.lastModified,2)",
+											"type": "Expression"
+										},
+										"type": "Datetime"
+									}
+								}
+							},
+							"linkedServiceName": {
+								"referenceName": "AzureSqlDatabase2",
+								"type": "LinkedServiceReference"
+							}
 						}
 					]
 				}
