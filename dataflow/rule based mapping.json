@@ -1,12 +1,13 @@
 {
-	"name": "dataflow1",
+	"name": "rule based mapping",
 	"properties": {
+		"description": "RB mapping with $$ function",
 		"type": "MappingDataFlow",
 		"typeProperties": {
 			"sources": [
 				{
 					"dataset": {
-						"referenceName": "AzureSqlTable2",
+						"referenceName": "inputblob_new_customers",
 						"type": "DatasetReference"
 					},
 					"name": "source1"
@@ -15,47 +16,55 @@
 			"sinks": [
 				{
 					"dataset": {
-						"referenceName": "AzureSqlTable_destination",
+						"referenceName": "AzureSqlTable3_customers",
 						"type": "DatasetReference"
 					},
 					"name": "sink1"
 				}
 			],
-			"transformations": [],
+			"transformations": [
+				{
+					"name": "derivedColumn1"
+				},
+				{
+					"name": "alterRow1"
+				}
+			],
 			"scriptLines": [
-				"source(allowSchemaDrift: true,",
+				"source(output(",
+				"          CustomerID as string,",
+				"          Name as string,",
+				"          Email as string,",
+				"          {Address\\r} as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     isolationLevel: 'READ_UNCOMMITTED',",
-				"     format: 'table') ~> source1",
-				"source1 sink(allowSchemaDrift: true,",
+				"     ignoreNoFilesFound: false) ~> source1",
+				"source1 derive(CustomerID = toInteger(CustomerID)) ~> derivedColumn1",
+				"derivedColumn1 alterRow(upsertIf(1==1)) ~> alterRow1",
+				"alterRow1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",
-				"          ProductID as integer,",
+				"          CustomerID as integer,",
 				"          Name as string,",
-				"          ProductNumber as string,",
-				"          Color as string,",
-				"          StandardCost as decimal(19,4),",
-				"          ListPrice as decimal(19,4),",
-				"          Size as string,",
-				"          Weight as decimal(8,2),",
-				"          ProductCategoryID as integer,",
-				"          ProductModelID as integer,",
-				"          SellStartDate as timestamp,",
-				"          SellEndDate as timestamp,",
-				"          DiscontinuedDate as timestamp,",
-				"          ThumbNailPhoto as binary,",
-				"          ThumbnailPhotoFileName as string,",
-				"          rowguid as string,",
-				"          ModifiedDate as timestamp",
+				"          Email as string,",
+				"          Address as string",
 				"     ),",
 				"     deletable:false,",
-				"     insertable:true,",
+				"     insertable:false,",
 				"     updateable:false,",
-				"     upsertable:false,",
+				"     upsertable:true,",
+				"     keys:[(toString(CustomerID))],",
 				"     format: 'table',",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
-				"     errorHandlingOption: 'stopOnFirstError') ~> sink1"
+				"     errorHandlingOption: 'stopOnFirstError',",
+				"     mapColumn(",
+				"          CustomerID,",
+				"          Name,",
+				"          Email,",
+				"          Address = {Address\r}",
+				"     )) ~> sink1"
 			]
 		}
 	}
