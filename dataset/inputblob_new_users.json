@@ -17,6 +17,7 @@
 				"container": "dl-raw"
 			},
 			"columnDelimiter": ",",
+			"encodingName": "US-ASCII",
 			"escapeChar": "\\",
 			"firstRowAsHeader": true,
 			"quoteChar": "\""

@@ -56,15 +56,19 @@
 				"     insertable:false,",
 				"     updateable:false,",
 				"     upsertable:true,",
-				"     keys:[(toString(CustomerID))],",
+				"     keys:[(user_id)],",
 				"     format: 'table',",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
 				"     errorHandlingOption: 'stopOnFirstError',",
 				"     mapColumn(",
-				"          CustomerID,",
-				"          Name,",
-				"          Email",
+				"          user_id,",
+				"          first_name,",
+				"          last_name,",
+				"          gender,",
+				"          age,",
+				"          country,",
+				"          email = {email\r}",
 				"     )) ~> sink1"
 			]
 		}
