@@ -24,15 +24,12 @@
 			],
 			"transformations": [
 				{
-					"name": "derivedColumn1"
-				},
-				{
 					"name": "alterRow1"
 				}
 			],
 			"scriptLines": [
 				"source(output(",
-				"          CustomerID as string,",
+				"          CustomerID as integer,",
 				"          Name as string,",
 				"          Email as string,",
 				"          {Address\\r} as string",
@@ -40,8 +37,7 @@
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false) ~> source1",
-				"source1 derive(CustomerID = toInteger(CustomerID)) ~> derivedColumn1",
-				"derivedColumn1 alterRow(upsertIf(1==1)) ~> alterRow1",
+				"source1 alterRow(upsertIf(1==1)) ~> alterRow1",
 				"alterRow1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",
@@ -62,8 +58,7 @@
 				"     mapColumn(",
 				"          CustomerID,",
 				"          Name,",
-				"          Email,",
-				"          Address = {Address\r}",
+				"          Email",
 				"     )) ~> sink1"
 			]
 		}
