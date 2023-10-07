@@ -1837,173 +1837,97 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/Azure databricks to SQL server')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
+			"name": "[concat(parameters('factoryName'), '/aggregate')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
 			"apiVersion": "2018-06-01",
 			"properties": {
-				"activities": [
-					{
-						"name": "ForEach1",
-						"type": "ForEach",
-						"dependsOn": [
-							{
-								"activity": "Set variable1",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"items": {
-								"value": "@variables('the_names')",
-								"type": "Expression"
+				"description": "find out the average age of users by gender",
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "inputblob_new_users",
+								"type": "DatasetReference"
 							},
-							"isSequential": true,
-							"activities": [
-								{
-									"name": "Copy data1",
-									"type": "Copy",
-									"dependsOn": [],
-									"policy": {
-										"timeout": "0.12:00:00",
-										"retry": 0,
-										"retryIntervalInSeconds": 30,
-										"secureOutput": false,
-										"secureInput": false
-									},
-									"userProperties": [],
-									"typeProperties": {
-										"source": {
-											"type": "AzureDatabricksDeltaLakeSource",
-											"exportSettings": {
-												"type": "AzureDatabricksDeltaLakeExportCommand"
-											}
-										},
-										"sink": {
-											"type": "SqlServerSink",
-											"writeBehavior": "insert",
-											"sqlWriterUseTableLock": false
-										},
-										"enableStaging": true,
-										"stagingSettings": {
-											"linkedServiceName": {
-												"referenceName": "azureblobstorage_staging",
-												"type": "LinkedServiceReference"
-											},
-											"path": "staging-container",
-											"enableCompression": true
-										},
-										"parallelCopies": 10
-									},
-									"inputs": [
-										{
-											"referenceName": "AzureDatabricksDeltaLakeDataset1",
-											"type": "DatasetReference",
-											"parameters": {
-												"table_name": {
-													"value": "@item()",
-													"type": "Expression"
-												}
-											}
-										}
-									],
-									"outputs": [
-										{
-											"referenceName": "on_premdb_races",
-											"type": "DatasetReference",
-											"parameters": {
-												"sql_table_name": {
-													"value": "@item()",
-													"type": "Expression"
-												}
-											}
-										}
-									]
-								}
-							]
-						}
-					},
-					{
-						"name": "Set variable1",
-						"type": "SetVariable",
-						"dependsOn": [
-							{
-								"activity": "Stored procedure1",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"secureOutput": false,
-							"secureInput": false
+							"name": "source1"
 						},
-						"userProperties": [],
-						"typeProperties": {
-							"variableName": "the_names",
-							"value": [
-								"circuits",
-								"constructors",
-								"drivers",
-								"races",
-								"pitstops",
-								"qualifying",
-								"laptimes",
-								"results"
-							]
+						{
+							"dataset": {
+								"referenceName": "inputblob_new_users_purchases",
+								"type": "DatasetReference"
+							},
+							"name": "source2"
 						}
-					},
-					{
-						"name": "Stored procedure1",
-						"type": "SqlServerStoredProcedure",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"storedProcedureName": "[[dbo].[delete_from_all_tables]"
-						},
-						"linkedServiceName": {
-							"referenceName": "onpremserver",
-							"type": "LinkedServiceReference"
+					],
+					"sinks": [
+						{
+							"name": "sink1"
 						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {}
-				},
-				"variables": {
-					"the_names": {
-						"type": "Array",
-						"defaultValue": [
-							"circuits",
-							"constructors",
-							"drivers",
-							"races",
-							"pitstops",
-							"qualifying",
-							"laptimes",
-							"results"
-						]
-					},
-					"circuits": {
-						"type": "String"
-					}
-				},
-				"folder": {
-					"name": "my tutorials"
-				},
-				"annotations": []
+					],
+					"transformations": [
+						{
+							"name": "join1"
+						},
+						{
+							"name": "select1"
+						},
+						{
+							"name": "aggregate1"
+						}
+					],
+					"scriptLines": [
+						"source(output(",
+						"          user_id as integer,",
+						"          first_name as string,",
+						"          last_name as string,",
+						"          age as short,",
+						"          gender as string,",
+						"          country as string,",
+						"          email as string",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     ignoreNoFilesFound: false) ~> source1",
+						"source(output(",
+						"          user_id as integer,",
+						"          purchase_amount as float",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     ignoreNoFilesFound: false) ~> source2",
+						"source1, source2 join(source1@user_id == source2@user_id,",
+						"     joinType:'inner',",
+						"     matchType:'exact',",
+						"     ignoreSpaces: false,",
+						"     broadcast: 'auto')~> join1",
+						"join1 select(mapColumn(",
+						"          user_id = source1@user_id,",
+						"          first_name,",
+						"          last_name,",
+						"          age,",
+						"          gender,",
+						"          country,",
+						"          email,",
+						"          purchase_amount",
+						"     ),",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> select1",
+						"select1 aggregate(groupBy(gender),",
+						"     avg_age = round(avg(age),2),",
+						"          count_users = count(user_id),",
+						"          {total purchase amount} = sum(purchase_amount)) ~> aggregate1",
+						"aggregate1 sink(validateSchema: false,",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     store: 'cache',",
+						"     format: 'inline',",
+						"     output: false,",
+						"     saveOrder: 1) ~> sink1"
+					]
+				}
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/on_premdb_races')]"
-			]
+			"dependsOn": []
 		}
 	]
 }
