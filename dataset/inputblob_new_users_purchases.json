@@ -27,11 +27,11 @@
 				"type": "String"
 			},
 			{
-				"name": " purchase_amount",
+				"name": "purchase_amount",
 				"type": "String"
 			},
 			{
-				"name": " purchase_date",
+				"name": "purchase_date",
 				"type": "String"
 			}
 		]
