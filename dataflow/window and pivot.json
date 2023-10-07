@@ -20,7 +20,11 @@
 					"name": "source2"
 				}
 			],
-			"sinks": [],
+			"sinks": [
+				{
+					"name": "sink1"
+				}
+			],
 			"transformations": [
 				{
 					"name": "join1"
@@ -73,7 +77,14 @@
 				"     skipDuplicateMapOutputs: true) ~> select1",
 				"select1 window(over(user_id),",
 				"     asc({ purchase_date}, true),",
-				"     running_total = sum({ purchase_amount})) ~> window1"
+				"     running_total = sum({ purchase_amount})) ~> window1",
+				"window1 sink(validateSchema: false,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     store: 'cache',",
+				"     format: 'inline',",
+				"     output: false,",
+				"     saveOrder: 1) ~> sink1"
 			]
 		}
 	}
