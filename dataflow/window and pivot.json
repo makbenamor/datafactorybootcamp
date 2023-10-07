@@ -20,11 +20,7 @@
 					"name": "source2"
 				}
 			],
-			"sinks": [
-				{
-					"name": "sink1"
-				}
-			],
+			"sinks": [],
 			"transformations": [
 				{
 					"name": "join1"
@@ -54,8 +50,8 @@
 				"     ignoreNoFilesFound: false) ~> source1",
 				"source(output(",
 				"          user_id as integer,",
-				"          { purchase_amount} as string,",
-				"          { purchase_date} as string",
+				"          { purchase_amount} as double,",
+				"          { purchase_date} as date",
 				"     ),",
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
@@ -73,31 +69,15 @@
 				"          gender,",
 				"          country,",
 				"          email,",
-				"          purchase_amount",
+				"          { purchase_amount},",
+				"          { purchase_date}",
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select1",
 				"sort1 keyGenerate(output(another_user_id as long),",
 				"     startAt: 1L,",
 				"     stepValue: 1L) ~> surrogateKey1",
-				"select1 sort(desc(purchase_amount, true)) ~> sort1",
-				"surrogateKey1 sink(validateSchema: false,",
-				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true,",
-				"     store: 'cache',",
-				"     format: 'inline',",
-				"     output: false,",
-				"     saveOrder: 1,",
-				"     mapColumn(",
-				"          user_id = another_user_id,",
-				"          first_name,",
-				"          last_name,",
-				"          age,",
-				"          gender,",
-				"          country,",
-				"          email,",
-				"          purchase_amount",
-				"     )) ~> sink1"
+				"select1 sort(desc(purchase_amount, true)) ~> sort1"
 			]
 		}
 	}
