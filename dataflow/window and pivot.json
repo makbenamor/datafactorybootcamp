@@ -29,10 +29,7 @@
 					"name": "select1"
 				},
 				{
-					"name": "surrogateKey1"
-				},
-				{
-					"name": "sort1"
+					"name": "window1"
 				}
 			],
 			"scriptLines": [
@@ -74,10 +71,9 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select1",
-				"sort1 keyGenerate(output(another_user_id as long),",
-				"     startAt: 1L,",
-				"     stepValue: 1L) ~> surrogateKey1",
-				"select1 sort(desc(purchase_amount, true)) ~> sort1"
+				"select1 window(over(user_id),",
+				"     asc({ purchase_date}, true),",
+				"     running_total = sum({ purchase_amount})) ~> window1"
 			]
 		}
 	}
