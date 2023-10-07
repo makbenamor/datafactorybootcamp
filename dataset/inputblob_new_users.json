@@ -47,7 +47,7 @@
 				"type": "String"
 			},
 			{
-				"name": "email\r",
+				"name": "email",
 				"type": "String"
 			}
 		]
