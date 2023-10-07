@@ -1,5 +1,5 @@
 {
-	"name": "window",
+	"name": "pivot",
 	"properties": {
 		"description": "a uniquely identifier number",
 		"type": "MappingDataFlow",
@@ -33,7 +33,7 @@
 					"name": "select1"
 				},
 				{
-					"name": "window1"
+					"name": "pivot1"
 				}
 			],
 			"scriptLines": [
@@ -76,10 +76,17 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select1",
-				"select1 window(over(user_id),",
-				"     asc(purchase_date, true),",
-				"     running_total = sum( purchase_amount)) ~> window1",
-				"window1 sink(validateSchema: false,",
+				"select1 pivot(groupBy(user_id,",
+				"          first_name,",
+				"          last_name,",
+				"          age,",
+				"          country,",
+				"          email,",
+				"          gender),",
+				"     pivotBy(purchase_date, [purchase_days]),",
+				"     columnNaming: '$N$V',",
+				"     lateral: true) ~> pivot1",
+				"pivot1 sink(validateSchema: false,",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
 				"     store: 'cache',",
