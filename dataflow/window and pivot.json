@@ -77,7 +77,7 @@
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select1",
 				"select1 window(over(user_id),",
-				"     asc({ purchase_date}, true),",
+				"     asc(purchase_date, true),",
 				"     running_total = sum( purchase_amount)) ~> window1",
 				"window1 sink(validateSchema: false,",
 				"     skipDuplicateMapInputs: true,",
