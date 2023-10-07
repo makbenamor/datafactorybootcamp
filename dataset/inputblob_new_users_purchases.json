@@ -13,7 +13,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": "purchases",
+				"fileName": "purchases.csv",
 				"container": "dl-raw"
 			},
 			"columnDelimiter": ",",
