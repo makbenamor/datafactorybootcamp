@@ -34,6 +34,9 @@
 				},
 				{
 					"name": "pivot1"
+				},
+				{
+					"name": "derivedColumn1"
 				}
 			],
 			"scriptLines": [
@@ -76,16 +79,18 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select1",
-				"select1 pivot(groupBy(user_id,",
+				"derivedColumn1 pivot(groupBy(user_id,",
 				"          first_name,",
 				"          last_name,",
 				"          age,",
+				"          gender,",
 				"          country,",
-				"          email,",
-				"          gender),",
-				"     pivotBy(purchase_date, [purchase_days]),",
+				"          email),",
+				"     pivotBy(new_date),",
+				"     monthly_purchases = sum(purchase_amount),",
 				"     columnNaming: '$N$V',",
 				"     lateral: true) ~> pivot1",
+				"select1 derive(new_date = toString(month(purchase_date))+'_' + toString(year(purchase_date))) ~> derivedColumn1",
 				"pivot1 sink(validateSchema: false,",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
