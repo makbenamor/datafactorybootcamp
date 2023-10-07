@@ -27,27 +27,7 @@
 				"type": "String"
 			},
 			{
-				"name": "first_name",
-				"type": "String"
-			},
-			{
-				"name": "last_name",
-				"type": "String"
-			},
-			{
-				"name": "age",
-				"type": "String"
-			},
-			{
-				"name": "gender",
-				"type": "String"
-			},
-			{
-				"name": "country",
-				"type": "String"
-			},
-			{
-				"name": "email\r",
+				"name": "purchase_amount",
 				"type": "String"
 			}
 		]
