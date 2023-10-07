@@ -1,7 +1,7 @@
 {
-	"name": "aggregate",
+	"name": "window and pivot",
 	"properties": {
-		"description": "find out the average age of users by gender",
+		"description": "a uniquely identifier number",
 		"type": "MappingDataFlow",
 		"typeProperties": {
 			"sources": [
@@ -33,7 +33,10 @@
 					"name": "select1"
 				},
 				{
-					"name": "aggregate1"
+					"name": "surrogateKey1"
+				},
+				{
+					"name": "sort1"
 				}
 			],
 			"scriptLines": [
@@ -74,17 +77,27 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select1",
-				"select1 aggregate(groupBy(gender),",
-				"     avg_age = round(avg(age),2),",
-				"          count_users = count(user_id),",
-				"          {total purchase amount} = sum(purchase_amount)) ~> aggregate1",
-				"aggregate1 sink(validateSchema: false,",
+				"sort1 keyGenerate(output(another_user_id as long),",
+				"     startAt: 1L,",
+				"     stepValue: 1L) ~> surrogateKey1",
+				"select1 sort(desc(purchase_amount, true)) ~> sort1",
+				"surrogateKey1 sink(validateSchema: false,",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
 				"     store: 'cache',",
 				"     format: 'inline',",
 				"     output: false,",
-				"     saveOrder: 1) ~> sink1"
+				"     saveOrder: 1,",
+				"     mapColumn(",
+				"          user_id = another_user_id,",
+				"          first_name,",
+				"          last_name,",
+				"          age,",
+				"          gender,",
+				"          country,",
+				"          email,",
+				"          purchase_amount",
+				"     )) ~> sink1"
 			]
 		}
 	}
