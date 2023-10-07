@@ -327,7 +327,7 @@
 						"type": "String"
 					},
 					{
-						"name": "email\r",
+						"name": "email",
 						"type": "String"
 					}
 				]
@@ -366,6 +366,10 @@
 					},
 					{
 						"name": "purchase_amount",
+						"type": "String"
+					},
+					{
+						"name": "purchase_date",
 						"type": "String"
 					}
 				]
