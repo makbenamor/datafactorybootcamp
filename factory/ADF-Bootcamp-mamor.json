@@ -1,0 +1,9 @@
+{
+	"name": "ADF-Bootcamp-mamor",
+	"location": "westeurope",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "15da6841-997d-4b7b-9c64-47a9dcbb9734",
+		"tenantId": "c7d6091f-ed02-4891-92a6-8d3b7115ea48"
+	}
+}
