@@ -1,0 +1,9 @@
+{
+	"name": "datafactorybootcamp-old",
+	"location": "westeurope",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "bc001307-3d1c-4fd1-9aa0-bb62c3447b01",
+		"tenantId": "c7d6091f-ed02-4891-92a6-8d3b7115ea48"
+	}
+}
